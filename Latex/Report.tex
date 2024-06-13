@@ -275,8 +275,6 @@ The output gate will extract useful information from the current memory cell to 
 \end{equation*}
     
 
-
-
 \subsection{FFT}
 
 The fast Fourier transform (FFT) is an extremely efficient algorithm for converting a time domain discrete signal to a frequency domain based on the discrete Fourier transform (DFT). The DFT transform analyzes a sequence of numbers into components at different frequencies. This transformation helps identify the main frequency components of the time series, thereby forecasting future values based on these components.
@@ -308,6 +306,59 @@ For \( N = 2^i \), we will first divide the sample DFT of size \( N \) into \( N
 FFT algorithm: 
 \[
 X(k) = \sum_{n=0}^{\frac{N}{2}-1} x_{2n} e^{-i \frac{2\pi}{N} (2n) k} + \sum_{n=0}^{\frac{N}{2}-1} x_{2n+1} e^{-i \frac{2\pi}{N} (2n+1) k}
+\]
+
+\subsection{N-HiTS}
+The N-HiTS (Neural Hierarchical Interpolation for Time Series) algorithm is an advanced method for time series forecasting, built on the Neural Basis Expansion Analysis (N-BEATS) framework. N-HiTS aims to improve accuracy and computational efficiency, particularly for long-term forecasts. It introduces key innovations such as multi-rate signal sampling and hierarchical multi-rate aggregation to build forecasts in a hierarchical manner, reducing computational requirements while enhancing accuracy.
+
+\subsubsection{Multi-Rate Signal Sampling}
+
+Each block in the N-HiTS architecture uses a MaxPool layer with kernel size \( k_\ell \) to focus on different scales of the input signal. This multi-rate sampling ensures that each block analyzes the components of the input at different sample rates, allowing blocks with larger kernels to focus on larger-scale components and blocks with smaller kernels to focus on finer details. Formally, with input \( y_{t-L:t,\ell} \) for block \( \ell \), the output after pooling is:
+\[
+y^{(p)}_{t-L:t,\ell} = \text{MaxPool}(y_{t-L:t,\ell}, k_\ell)
+\]
+
+\subsubsection{Nonlinear Regression}
+
+After multi-rate sampling, each block performs nonlinear regression to compute forward \( \theta^f_\ell \) and backward \( \theta^b_\ell \) coefficients for interpolation. These coefficients are generated using a multilayer perceptron (MLP) that processes the pooled input:
+\[
+h_\ell = \text{MLP}_\ell(y^{(p)}_{t-L:t,\ell})
+\]
+\[
+\theta^f_\ell = \text{Linear}^f(h_\ell)
+\]
+\[
+\theta^b_\ell = \text{Linear}^b(h_\ell)
+\]
+
+\subsubsection{Hierarchical Interpolation}
+
+In typical multi-horizon forecasting models, the output size directly corresponds to the forecast horizon \( H \). This often leads to high computational costs and increased model complexity. N-HiTS mitigates this by using hierarchical interpolation, where the magnitude of the forecast coefficients \( \theta^f_\ell \) is controlled by the expression rate \( r_\ell \) as follows:
+\[
+|\theta^f_\ell| = \lceil r_\ell H \rceil
+\]
+
+To recover the full forecast horizon \( H \), interpolation is applied:
+\[
+\hat{y}_{\tau,\ell} = g(\tau, \theta^f_\ell), \forall \tau \in \{t+1, ..., t+H\}
+\]
+\[
+\tilde{y}_{\tau,\ell} = g(\tau, \theta^b_\ell), \forall \tau \in \{t-L, ..., t\}
+\]
+
+The interpolation function \( g \) can vary in smoothness, with options such as nearest neighbor, piecewise linear, and cubic interpolation explored.
+
+\subsubsection{Block and Stack Structure}
+
+N-HiTS is composed of multiple blocks organized into stacks, with each stack designed to specialize in capturing different characteristics of the time series data. Each block contains an MLP that produces backcast \( \tilde{y}_{t-L:t,\ell} \) and forecast \( \hat{y}_{t+1:t+H,\ell} \) outputs. The blocks are connected in a doubly residual stacking manner, allowing each block to refine the input signal for subsequent blocks and gradually improve the forecasts.
+Formally, the input to block \( \ell \) in stack \( s \) can be represented as:
+\[
+y_{t-L:t,\ell} = y_{t-L:t} - \sum_{i=1}^{\ell-1} \tilde{y}_{t-L:t,i}
+\]
+
+The output of each block is then aggregated to form the final forecast:
+\[
+\hat{y}_{t+1:t+H} = \sum_{\ell=1}^{B} \hat{y}_{t+1:t+H,\ell}
 \]
     
 \subsection{TBATS}
