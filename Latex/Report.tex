@@ -534,7 +534,7 @@ PatchTST has two variants:
 
 \section{Conclusion}
 
-\indent Horizontally, considering the gold price data, the best ratio for the models is … with the highest number of best results being …, the second best ratio is … (… times), and the worst ratio is … (… times). Similarly, for the platinum price data, the best ratio is … (… times), followed by the ratios … (… times) and … (… times). For the silver price data, the worst ratio is … (… times), followed by … (… times), and the best ratio is … (… times).
+\indent When considering the horizontal analysis, for gold price data, the best ratio for the models is 7:3, with the best results occurring 5 times. The second-best ratio is 8:2 (3 times), and the worst is 9:1 (1 time). Similarly, for platinum price data, the best ratio is 8:2 (5 times), followed by 9:1 (3 times) and 7:3 (1 time). For silver price data, the worst ratios are 9:1 (2 times) and 7:3 (2 times), while the best is 8:2 (5 times). Thus, the best overall ratio for all data is 8:2.
 
 \indent Vertically, for each ratio, corresponding to each validation method, the we will select the top 3 forecasting models; top 1, 2, and 3 will be assigned scores of 3, 2, and 1, respectively. The model with the highest total score will be chosen. From there, the top 3 models for each data set will be selected.
 
@@ -546,22 +546,23 @@ PatchTST has two variants:
     \begin{tabular}{|c|c|c|c|c|c|}
         \hline
         \textbf{Dataset} & \textbf{Ranking} & \textbf{Ratio 7:3} & \textbf{Ratio 8:2} & \textbf{Ratio 9:1} & \textbf{3 best models} \\ \hline
-        \multirow{3}{*}{Gold price} & Top 1 & a & a & a & a \\ \cline{2-6} 
-                                  & Top 2 &   &   &   &   \\ \cline{2-6} 
-                                  & Top 3 &   &   &   &   \\ \hline
-        \multirow{3}{*}{Platium price} & Top 1 & a & a & a & a \\ \cline{2-6} 
-                                      & Top 2 &   &   &   &   \\ \cline{2-6} 
-                                      & Top 3 &   &   &   &   \\ \hline
-        \multirow{3}{*}{Silver price} & Top 1 & a & a & a & a \\ \cline{2-6} 
-                                 & Top 2 &   &   &   &   \\ \cline{2-6} 
-                                 & Top 3 &   &   &   &   \\ \hline
+        \multirow{3}{*}{Gold price} & Top 1 & GRU (9) & GRU (9) & LSTM (9) & GRU \\ \cline{2-6} 
+                                  & Top 2 & RNN (6) & RNN (6) & GRU (6) & RNN \\ \cline{2-6} 
+                                  & Top 3 & LSTM (3) & LSTM (3) & RNN (3) & LSTM (top 2) \\ \hline
+        \multirow{3}{*}{Platium price} & Top 1 & LSTM (8) & GRU (9) & GRU (8) & GRU \\ \cline{2-6} 
+                                      & Top 2 & GRU (7) & LSTM (6) & LSTM (7) & LSTM \\ \cline{2-6} 
+                                      & Top 3 & RNN (3) & RNN (3) & RNN (3) & RNN \\ \hline
+        \multirow{3}{*}{Silver price} & Top 1 & GRU (9) & GRU (9) & GRU (9) & GRU \\ \cline{2-6} 
+                                 & Top 2 & LSTM (6) & RNN (6) & LSTM (6) & LSTM \\ \cline{2-6} 
+                                 & Top 3 & RNN (3) & LSTM (3) & RNN (3) & RNN \\ \hline
     \end{tabular}}
     \caption{\centering Vertically evaluating models ranking table}
     \label{table:models}
 \end{table}
 
-\indent Finally, after evaluating the models vertically across all three datasets, the group found that the best performing model is... Among the models that were expected to perform well, only the model... was selected as the best, while the models... and... did not have very good predictive results. Thus, the... model, according to the results, shows excellent learning capability with the potential to forecast the prices of the three precious metals in the future. Based on these findings, future research groups and data analysts can consider the models that can predict well and expand the research to forecast other metals or related fields, as well as improve the models to better serve academic and business needs.
+\indent Finally, after evaluating the models vertically across all three datasets, the group found that the best performing model is GRU. Among the models that were expected to perform well, only the model LSTM was selected as the best, while the models ARIMA and TBATS did not have very good predictive results. The top 3 best models always included GRU, LSTM, and RNN, all of which are deep learning algorithms, and their results were not significantly different from each other. This indicates that these types of algorithms yield more favorable results for these mineral price datasets. PatchTST and N-HiTS also produced fairly good results, as their outcomes were consistently close to the top 3. 
 
+\indent Thus, the  model GRU, according to the results, shows excellent learning capability with the potential to forecast the prices of the three precious metals in the future. Based on these findings, future research groups and data analysts can consider the models that can predict well and expand the research to forecast other metals or related fields, as well as improve the models to better serve academic and business needs.
 
 \section*{Acknowledgment}
 \addcontentsline{toc}{section}{Acknowledgment}
