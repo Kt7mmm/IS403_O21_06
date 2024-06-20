@@ -157,6 +157,46 @@ Trong mỗi tập dữ liệu gồm hai cột:
 Trong quá trình nghiên cứu và phân tích dữ liệu để dự báo giá khoáng sản, nhóm đã sử dụng một số công cụ và thư viện phần mềm phổ biến, chủ yếu được triển khai bằng ngôn ngữ lập trình Python. Danh sách các công cụ và thư viện chính được sử dụng: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn,... 
 \section{Phương pháp}
 
+\subsection{ARIMA}
+ARIMA, hay mô hình tự hồi quy tích hợp trung bình chuyển động, là một phương pháp phân tích thống kê sử dụng dữ liệu chuỗi thời gian để hiểu tốt hơn một tập dữ liệu hoặc dự đoán xu hướng tương lai. Nó là một mô hình kết hợp của 2 quá trình tự hồi quy và một trung bình trượt. Dữ liệu quá khứ sẽ được sử dụng để dự đoán dữ liệu trong tương lai.\\
+Mô hình ARIMA đại diện cho tự hồi quy tự động (AR), trung bình di chuyển (MA) và tích hợp sai phân (I). \\
+\indent\textbullet\ \textbf{Tích hợp (I) d:} Là quá trình sai phân tích hợp, dùng để so sánh sự khác biệt giữa d quan sát.\\
+\indent\textbullet\ \textbf{Tự hồi quy (AR) p:} Đây là thành phần tự hồi quy bao gồm tập hợp các trễ của biến hiện tại. Độ trễ bậc p là giá trị quay lại thời điểm p trong quá khứ của chuỗi. Quá trình AR có độ trễ dài hay ngắn phụ thuộc vào tham số trễ p.\\
+\indent\textbullet\ \textbf{Trung bình di chuyển (MA) q:} Quá trình trung bình di chuyển (MA) q được hiểu là quá trình thay đổi giá trị trung bình của chuỗi theo thời gian. Quá trình trung bình di chuyển sẽ tìm ra mối liên hệ tuyến tính giữa dữ liệu hiện tại và q lỗi trước đó.
+
+Phương trình hồi quy ARIMA (p, d, q) có thể được biểu diễn như sau:
+Phương trình hồi quy tuyến tính đơn giản:
+\begin{samepage}
+\[\Delta x_t = \sum_{i=1}^{p} \alpha_i \Delta (x_{t-i}) +  \sum_{i=1}^{q} \beta_i \varepsilon_{t-i}\]
+\end{samepage}
+
+\subsection{RNN}
+Mạng hồi quy RNN (Recurrent Neural Network) là một loại Mạng nơ ron (Neural Network) thường được sử dụng cho dữ liệu tuần tự như chuỗi thời gian. RNN sử dụng đầu ra của bước trước làm đầu vào cho bước hiện tại trong khi Mạng Nơ ron truyền thống tất cả đầu vào và đầu ra đều độc lập với nhau.
+
+Đặc điểm chính và quan trọng nhất của RNN là trạng thái ẩn (Hidden state). Trạng thái này nhớ đầu vào trước đó của mạng. Nó sử dụng cùng trọng số cho đầu vào của mỗi lớp trong mạng.
+
+RNN tính toán trạng thái ẩn ký hiệu là \(h_t\) dựa trên đầu vào hiện tại \(x_t\) và trạng thái ẩn trước đó \(h_{t-1}\):
+\[
+h_t = \sigma_h (W_{xh} x_t + W_{hh} h_{t-1} + b_h)
+\]
+
+Đầu ra \(y_t\) của RNN được tính toán dựa trên trạng thái ẩn hiện tại:
+\[
+y_t = \sigma_y (W_{hy} h_t + b_o)
+\]
+
+Trong đó:
+\begin{itemize}
+    \item \(\sigma_h, \sigma_y\): Hàm kích hoạt của lớp ẩn và lớp đầu ra.
+    \item \(W_{xh}\): Là ma trận trọng số kết nối giữa lớp đầu vào và lớp ẩn.
+    \item \(W_{hh}\): Là ma trận trọng số kết nối giữa lớp ẩn và chính nó.
+    \item \(W_{hy}\): Là ma trận trọng số kết nối giữa lớp ẩn và lớp đầu ra.
+\end{itemize}
+
+Các tham số này được cập nhật bằng cách sử dụng Lan truyền ngược (Backpropagation). Tuy nhiên, do RNN hoạt động trên dữ liệu tuần tự nên nó sẽ sử dụng Backpropagation through Time (BPTT).
+
+Khác với lan truyền ngược truyền thống chỉ tính toán lỗi cho bước đầu ra cuối cùng và cập nhật tham số của mỗi lớp độc lập, BPTT tính toán lỗi cho mỗi bước thời gian trong chuỗi đầu vào, cộng dồn chúng lại và cập nhật tham số của toàn bộ mạng dựa trên lỗi tổng hợp.
+
 \subsection{GRU}
 Mạng Neural hồi tiếp nút có cổng (GRU) là một cơ chế cổng trong các mạng nơ ron hồi quy, là một biến thể đơn giản hơn của mạng Bộ nhớ ngắn hạn dài (LSTM). GRU có thể xử lý dữ liệu tuần tự như văn bản, bài viết và chuỗi thời gian.
 GRU sử dụng cơ chế cổng để cập nhật có chọn lọc trạng thái ẩn của mạng tại mỗi bước thời gian. Cơ chế cổng được dùng để kiểm soát luồng dữ liệu đi vào và đi ra của mạng. GRU có 2 cơ chế cổng: cổng xóa và cổng cập nhật. \\
@@ -186,6 +226,30 @@ Trong đó:\\
     \label{fig:GRU_Model}
 \end{figure}
 
+\subsection{FFT}
+Biến đổi Fourier nhanh (FFT) là một thuật toán cực kì hiệu quả để chuyển đổi một tín hiệu rời rạc miền thời gian sang miền tần số dựa trên biến đổi Fourier rời rạc (DFT). Phép biến đổi DFT phân tích một dãy các số thành các thành phần ở các tần số khác nhau. Phép biến đổi này giúp xác định các thành phần tần số chính của chuỗi thời gian từ đó dự báo các giá trị tương lai dựa trên các thành phần này.
+
+Phép biến đổi Fourier rời rạc - DFT của một tín hiệu rời rạc cho trước \( x_n = [x_0, x_1, \ldots, x_{N-1}] \) được cho bởi biểu thức sau:
+\[
+X_k = 
+\begin{cases} 
+\sum_{n=0}^{N-1} x(n) e^{-i \frac{2\pi}{N} kn} & \text{Nếu } 0 \leq k \leq N-1 \\ 
+0 & \text{Nếu } k \text{ thuộc phần còn lại} 
+\end{cases}
+\]
+trong đó: \(i\) là đơn vị phức. 
+
+Tính toán biến đổi DFT có độ phức tạp là \(O(N^2)\).
+
+FFT đã được ra đời để khắc phục tốc độ xử lí của DFT. Giả thiết dãy \(x(n)\) có độ dài \(N = 2^i\), nếu không có dạng lũy thừa 2 thì thêm vài mẫu 0 vào sau dãy \(x(n)\). Nguyên tắc cơ bản mà các thuật toán FFT đều dựa vào là phân chia DFT \(N\) mẫu thành các DFT nhỏ hơn một cách liên tục. 
+
+Với \(N = 2^i\), đầu tiên ta sẽ phân chia DFT \(N\) mẫu thành các DFT \(N/2\) mẫu, sau đó phân chia DFT \(N/2\) mẫu thành \(N/4\) mẫu và cứ thế cho đến khi được DFT dài \(N = 2\). Về bản chất nó là đệ quy. Do đó độ phức tạp của FFT được xác định là \(O(N \log_2 (N))\).
+
+Thuật toán FFT:
+\[
+X(k) = \sum_{n=0}^{\frac{N}{2}-1} x_{2n} e^{-i \frac{2\pi}{N} (2n) k} + \sum_{n=0}^{\frac{N}{2}-1} x_{2n+1} e^{-i \frac{2\pi}{N} (2n+1) k}
+\]
+
 \subsection{PatchTST}
 PatchTST là mô hình sử dụng Transformer để dự đoán đa biến và học biểu diễn tự giám sát. Dựa trên hai phần chính: \\
 \begin{enumerate}
@@ -206,6 +270,7 @@ PatchTST có hai biến thể:
     \item \textbf{PatchTST có giám sát:} Sử dụng dữ liệu có nhãn.
     \item \textbf{PatchTST tự giám sát:} Không yêu cầu dữ liệu có nhãn.
 \end{itemize}
+
 
 
 \subsection{LSTM}
@@ -262,3 +327,95 @@ s_t = \alpha x_t + (1 - \alpha) s_{t-1} + \alpha (x_t - s_{t-1})
   \item $t$: thời điểm
 \end{itemize}
 Khi giá trị của \( \alpha \) lớn (gần với 1), mức độ làm mịn giảm. Điều này có nghĩa là thuật toán SES sẽ có ít làm mịn hơn và phản ứng mạnh mẽ hơn đối với những thay đổi gần đây nhất trong dữ liệu. Các giá trị dự đoán sẽ gần với các giá trị quan sát gần đây nhất.
+
+\section{Kết quả thực nghiệm}
+
+\subsection{Kết quả thực nghiệm và đánh giá}
+% \subsubsection{Dữ liệu giá Vàng}
+\begin{figure}[t] 
+\subsubsection{Dữ liệu giá Vàng}
+    % \centering
+    \raggedright
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/Linear_gold_8-2.png}
+            \caption{Linear Regression tỷ lệ 8:2}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/Arima_gold_7-3.png}
+            \caption{Mô hình ARIMA tỷ lệ 7:3}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/RNN_gold_7-3.png}
+            \caption{Mô hình RNN tỷ lệ 7:3}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/Gru_gold_7-3.png} 
+            \caption{Mô hình GRU tỷ lệ 7:3}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/LSTM_gold_7-3.png} 
+            \caption{Mô hình LSTM tỷ lệ 7:3}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/FFT_gold_8-2.png} 
+            \caption{Mô hình FFT tỷ lệ 8:2}
+        \end{minipage}
+         \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/TBATS_gold_8-2.png} 
+            \caption{Mô hình TBATS tỷ lệ 8:2}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/SES_gold_7-3.png} 
+            \caption{Mô hình SES tỷ lệ 7:3}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/PatchTST_gold_9-1.png} 
+            \caption{Mô hình PatchTST tỷ lệ 9:1}
+        \end{minipage}
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{bibliography/Figure/NHits_gold_8-2.jpg} 
+            \caption{Mô hình N-Hits tỷ lệ 8:2}
+        \end{minipage}
+    \end{minipage}
+    \caption{Các mô hình dự đoán giá vàng tốt nhất}
+    \label{fig:gold-images}
+\end{figure}
+% \FloatBarrier
+% \subsubsection{Dữ liệu giá Bạc}
+% \pagebreak
+
+\begin{thebibliography}{00}
+    \bibitem{b1} Tawum Juvert Mbah, Haiwang Ye, Jianhua Zhang & Mei Long,
+    Using LSTM and ARIMA to Simulate and Predict Limestone Price Variations (06/01/2021).
+    \bibitem{b2} Bojun Yin, Renguang Zuo, Yihui Xiong, Mineral Prospectivity Mapping via Gated Recurrent Unit Model (25/11/2021).
+    \bibitem{b3} F.Javier Galán-Sales, Pablo Reina-Jiménez, Manuel Carranza-García, José María Luna-Romera, An Approach to Enhance Time Series Forecasting by Fast Fourier Transform (31/08/2023).
+    \bibitem{b4}Improve, A. 27 F. (2018, October 3). Introduction to recurrent neural network. GeeksforGeeks. https://www.geeksforgeeks.org/introduction-to-recurrent-neural-network/
+    \bibitem{b5}Gated recurrent unit networks. (2019, July 9). GeeksforGeeks. https://www.geeksforgeeks.org/gated-recurrent-unit-networks/
+    \bibitem{b6}De Livera, A. M., Hyndman, R. J., & Snyder, R. D. (n.d.). Forecasting time series with complex seasonal patterns using exponential smoothing. Robjhyndman.com. Retrieved June 20, 2024, from https://robjhyndman.com/papers/ComplexSeasonality.pdf (trang 9, 10, 11, 12)
+    \bibitem{b7} VanderPlas, J. (n.d.). Understanding the FFT algorithm. Github.Io. Retrieved June 20, 2024, from https://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/
+    \bibitem{b8} Yuqi Nie, Nam h. Nguyen, Phanwadee Sinthong, Jayant Kalagnanam, A Time Series is Worth 64 Words: Long-term Forecasting with Transformers (published 5 Mar 2023).
+    \bibitem{b9} Gough, B. (n.d.). FFT Algorithms. Cinvestav.Mx. Retrieved June 20, 2024, from https://www.tamps.cinvestav.mx/~wgomez/material/AID/fft_algorithms.pdf
+    
+    \end{thebibliography}
+    \vspace{12pt}
+
