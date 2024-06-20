@@ -157,6 +157,19 @@ Trong mỗi tập dữ liệu gồm hai cột:
 Trong quá trình nghiên cứu và phân tích dữ liệu để dự báo giá khoáng sản, nhóm đã sử dụng một số công cụ và thư viện phần mềm phổ biến, chủ yếu được triển khai bằng ngôn ngữ lập trình Python. Danh sách các công cụ và thư viện chính được sử dụng: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn,... 
 \section{Phương pháp}
 
+\subsection{ARIMA}
+ARIMA, hay mô hình tự hồi quy tích hợp trung bình chuyển động, là một phương pháp phân tích thống kê sử dụng dữ liệu chuỗi thời gian để hiểu tốt hơn một tập dữ liệu hoặc dự đoán xu hướng tương lai. Nó là một mô hình kết hợp của 2 quá trình tự hồi quy và một trung bình trượt. Dữ liệu quá khứ sẽ được sử dụng để dự đoán dữ liệu trong tương lai.\\
+Mô hình ARIMA đại diện cho tự hồi quy tự động (AR), trung bình di chuyển (MA) và tích hợp sai phân (I). \\
+\indent\textbullet\ \textbf{Tích hợp (I) d:} Là quá trình sai phân tích hợp, dùng để so sánh sự khác biệt giữa d quan sát.\\
+\indent\textbullet\ \textbf{Tự hồi quy (AR) p:} Đây là thành phần tự hồi quy bao gồm tập hợp các trễ của biến hiện tại. Độ trễ bậc p là giá trị quay lại thời điểm p trong quá khứ của chuỗi. Quá trình AR có độ trễ dài hay ngắn phụ thuộc vào tham số trễ p.\\
+\indent\textbullet\ \textbf{Trung bình di chuyển (MA) q:} Quá trình trung bình di chuyển (MA) q được hiểu là quá trình thay đổi giá trị trung bình của chuỗi theo thời gian. Quá trình trung bình di chuyển sẽ tìm ra mối liên hệ tuyến tính giữa dữ liệu hiện tại và q lỗi trước đó.
+
+Phương trình hồi quy ARIMA (p, d, q) có thể được biểu diễn như sau:
+Phương trình hồi quy tuyến tính đơn giản:
+\begin{samepage}
+\[\Delta x_t = \sum_{i=1}^{p} \alpha_i \Delta (x_{t-i}) +  \sum_{i=1}^{q} \beta_i \varepsilon_{t-i}\]
+\end{samepage}
+
 \subsection{RNN}
 Mạng hồi quy RNN (Recurrent Neural Network) là một loại Mạng nơ ron (Neural Network) thường được sử dụng cho dữ liệu tuần tự như chuỗi thời gian. RNN sử dụng đầu ra của bước trước làm đầu vào cho bước hiện tại trong khi Mạng Nơ ron truyền thống tất cả đầu vào và đầu ra đều độc lập với nhau.
 
