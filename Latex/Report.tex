@@ -206,3 +206,59 @@ PatchTST có hai biến thể:
     \item \textbf{PatchTST có giám sát:} Sử dụng dữ liệu có nhãn.
     \item \textbf{PatchTST tự giám sát:} Không yêu cầu dữ liệu có nhãn.
 \end{itemize}
+
+
+\subsection{LSTM}
+LSTM (Bộ nhớ dài hạn) là một loại mạng nơ-ron hồi quy (RNN) được thiết kế để giải quyết vấn đề gradient biến mất trong các RNN truyền thống. Lợi thế của LSTM là khả năng xử lý khoảng cách xa giữa các thông tin, làm cho nó trở nên hữu ích trong các ứng dụng như nhận dạng giọng nói, dịch máy và phân tích chuỗi thời gian.
+\\
+Một đơn vị LSTM bao gồm một ô nhớ, một cổng đầu vào, một cổng đầu ra và một cổng quên. Ô nhớ lưu giữ thông tin trong thời gian dài, trong khi các cổng kiểm soát dòng chảy của thông tin vào và ra khỏi ô. Cổng quên quyết định thông tin nào cần bỏ qua, cổng đầu vào quyết định thông tin mới nào cần lưu trữ, và cổng đầu ra quyết định thông tin nào cần xuất ra, giúp mạng LSTM duy trì các phụ thuộc dài hạn hữu ích để đưa ra dự đoán.
+\\
+Cổng quên xóa thông tin không còn hữu ích khỏi ô nhớ. Phương trình của cổng quên là:\\
+\begin{equation*}
+    f_t = \sigma(W_f [h_{t-1}, x_t] + b_f)
+\end{equation*}
+
+Trong đó:
+\begin{itemize}
+    \item $\sigma$: Hàm kích hoạt Sigmoid
+    \item $W_f$ và $b_f$: Trọng số và độ lệch của cổng quên
+\end{itemize}
+
+Cổng đầu vào sẽ thêm thông tin hữu ích vào ô nhớ. Phương trình cho cổng đầu vào là:
+\\
+\begin{align*}
+    i_t &= \sigma(W_i [h_{t-1}, x_t] + b_i) \\
+    \tilde{C}_t &= \tanh(W_c [h_{t-1}, x_t] + b_c) \\
+    C_t &= f_t \cdot C_{t-1} + i_t \cdot \tilde{C}_t
+\end{align*}
+
+Trong đó:
+\begin{itemize}
+    \item $i_t$: Đầu vào tại thời điểm t
+    \item $C_{t-1}$: Ô nhớ tại thời điểm t-1
+    \item $W_c, b_c$: Trọng số và độ lệch của ô nhớ
+    \item $\tanh$: Hàm kích hoạt Tanh
+\end{itemize}
+
+Cổng đầu ra sẽ trích xuất thông tin hữu ích từ ô nhớ hiện tại để trình bày như đầu ra. Phương trình cho cổng đầu ra là:
+
+\begin{equation*}
+    o_t = \sigma(W_o [h_{t-1}, x_t] + b_o)
+\end{equation*}
+
+
+\subsection{SES}
+Mô hình Smoothing Exponential đơn giản (SES) là một phương pháp dự báo thời gian đơn giản và hiệu quả được sử dụng để làm mịn dữ liệu chuỗi thời gian và dự đoán giá trị trong tương lai. SES đặc biệt hữu ích khi cần dự báo ngắn hạn trên dữ liệu không có xu hướng hoặc mùa vụ rõ rệt. Phương pháp này hoạt động bằng cách áp dụng trọng số giảm một cách mũ màu mực cho các quan sát trước đó, từ đó làm mịn các biến động ngẫu nhiên trong dữ liệu.
+\\
+Công thức:
+\begin{equation}
+s_t = \alpha x_t + (1 - \alpha) s_{t-1} + \alpha (x_t - s_{t-1})
+\end{equation}
+
+\begin{itemize}
+  \item $s_t$: giá trị dự đoán
+  \item $s_{t-1}$: giá trị dự đoán trước đó
+  \item $\alpha$: hệ số làm mịn $(0 < \alpha < 1)$
+  \item $t$: thời điểm
+\end{itemize}
+Khi giá trị của \( \alpha \) lớn (gần với 1), mức độ làm mịn giảm. Điều này có nghĩa là thuật toán SES sẽ có ít làm mịn hơn và phản ứng mạnh mẽ hơn đối với những thay đổi gần đây nhất trong dữ liệu. Các giá trị dự đoán sẽ gần với các giá trị quan sát gần đây nhất.
