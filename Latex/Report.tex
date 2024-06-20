@@ -1,383 +1,248 @@
-\documentclass{ieeeojies}
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage{float}
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
+\usepackage{xcolor}
 \usepackage{array}
 \usepackage[table]{xcolor}
 \usepackage{multirow}
 \usepackage{multicol}
-\usepackage{float}
-\usepackage{amsmath}
-\usepackage{mathabx}
+\usepackage{mathabx} 
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document} 
+
+\title{DỰ BÁO GIÁ KHOÁNG SẢN SỬ DỤNG CÁC KỸ THUẬT PHÂN TÍCH CHUỖI THỜI GIAN \\
+{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and should not be used}
+\thanks{Identify applicable funding agency here. If none, delete this.}
+} 
+
+\author{
+\IEEEauthorblockN{1\textsuperscript{st} Trần Kim Thanh\IEEEauthorrefmark{1},
+2\textsuperscript{nd} Mai Quốc Bảo\IEEEauthorrefmark{1},
+3\textsuperscript{rd} Bùi Hữu Bằng\IEEEauthorrefmark{1},\\
+4\textsuperscript{th} Trần Minh Hoàng\IEEEauthorrefmark{1},
+5\textsuperscript{th} and Võ Ngọc Lệ Xuân\IEEEauthorrefmark{1} 
+}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Khoa Hệ thống thông tin, Trường đại học Công nghệ thông tin, Đại học Quốc gia Thành phố Hồ Chí Minh, Vietnam \\
+Email: 21522605@gm.uit.edu.vn, 21521850@gm.uit.edu.vn, 21520151@gm.uit.edu.vn, 21522101@gm.uit.edu.vn, 21521692@gm.uit.edu.vn} 
+
+}
 
 
 
-\begin{document}
-\title{MINERAL PRICE FORECASTING USING TIME SERIES ANALYSIS TECHNIQUES}
 
-\author{\uppercase{Mai Quoc Bao}\authorrefmark{1},
-\uppercase{Bui Huu Bang\authorrefmark{2}, Tran Minh Hoang\authorrefmark{3}, Vo Ngoc Le Xuan\authorrefmark{4},\\ Tran Kim Thanh}\authorrefmark{5}}
-
-\address[1]{Faculty of Information Systems, University of Information Technology, (e-mail: 21521850@gm.uit.edu.vn)}
-\address[2]{Faculty of Information Systems, University of Information Technology, (e-mail: 21520151@gm.uit.edu.vn)}
-\address[3]{Faculty of Information Systems, University of Information Technology, (e-mail: 21522101@gm.uit.edu.vn)}
-\address[4]{Faculty of Information Systems, University of Information Technology, (e-mail: 21521692@gm.uit.edu.vn)}
-\address[5]{Faculty of Information Systems, University of Information Technology, (e-mail: 21522605@gm.uit.edu.vn)}
-
-\markboth
-{Author \headeretal: Mai Quoc Bao, Bui Huu Bang, Tran Minh Hoang, Vo Ngoc Le Xuan, Tran Kim Thanh}
-{Author \headeretal: Mai Quoc Bao, Bui Huu Bang, Tran Minh Hoang, Vo Ngoc Le Xuan, Tran Kim Thanh}
 
 \begin{abstract}
-In recent decades, precious metals have been maintaining their appeal among investors, especially gold, platinum and silver. Along with that, metal price prediction problems and models are constantly being born and improved with higher and higher accuracy. However, depending on the world economic context and the advancement of data analysis techniques, predictive models will produce different results. To solve this problem, our team will build and evaluate price forecasting models in parallel with the following 10 algorithms: Linear Regression, ARIMA, RNN, GRU, LSTM, FFT, TBATS, SES, N-HiTS, PatchTST; Along with that are 3 model testing methods: MAPE, RMSE, MAE.
-\end{abstract}
+Trong nhiều thập kỷ gần đây, kim loại quý đã và đang duy trì được sức hút của mình trong giới đầu tư, đặc biệt là vàng, bạch kim và bạc. Cùng với đó, những bài toán và mô hình dự đoán giá kim loại không ngừng được sinh ra và cải tiến với độ chính xác ngày một cao hơn. Tuy vậy, tùy theo bối cảnh kinh tế thế giới và sự tiến bộ của các kỹ thuật phân tích dữ liệu mà những mô hình dự đoán sẽ cho ra những kết quả khác nhau. Để giải quyết vấn đề này, nhóm chúng em sẽ thực hiện xây dựng và đánh giá song song các mô hình dự báo giá theo chuỗi thời gian với 10 thuật toán sau: Linear Regression, ARIMA, RNN, GRU, LSTM, FFT, TBATS, SES, N-HiTS, PatchTST; cùng với đó là 3 phương pháp kiểm định mô hình: MAPE, RMSE, MAE.
+\end{abstract} 
 
-\begin{keywords}
-Linear Regression – Linear Regression, ARIMA – Autoregressive Integrated Moving Average, RNN – Recurrent Neural Network, GRU – Gated Recurrent Unit, LSTM – Long Short Term Memory, FFT – Fast Fourier Transform, TBATS – (Trigonometric seasonality, Box-Cox transformation, ARMA errors, Trend, Seasonal components), SES – Simple Exponential Smoothing, N-HiTS – Neural Hierarchical Interpolation for Time Series, PatchTST – Patch Time Series Transformer, MAPE – Mean Absolute Percentage Error,  RMSE – Root Mean Squared Error, MAE – Mean Absolute Error.
-\end{keywords}
+\begin{IEEEkeywords}
+Linear Regression – Hồi quy tuyến tính, ARIMA – Autoregressive Integrated Moving Average, RNN – Recurrent Neural Network, GRU – Gated Recurrent Unit, LSTM – Long Short Term Memory, FFT – Fast Fourier Transform, TBATS – (Trigonometric seasonality, Box-Cox transformation, ARMA errors, Trend, Seasonal components), SES – Simple Exponential Smoothing, N-HiTS – Neural Hierarchical Interpolation for Time Series, PatchTST – Patch Time Series Transformer, MAPE – Mean Absolute Percentage Error, RMSE – Root Mean Squared Error, MAE – Mean Absolute Error.
+\end{IEEEkeywords} 
 
-\titlepgskip=-15pt
+\section{Giới thiệu chung}
+Sự biến động của giá vàng(Au), bạc(Ag) và bạch kim(Pt) luôn là điểm nóng trong lĩnh vực đầu tư và tài chính. Việc dự đoán giá của các loại kim loại quý này không chỉ có ý nghĩa quan trọng trong việc hỗ trợ quyết định đầu tư của các nhà đầu tư và phân tích thị trường, mà còn trong việc cung cấp thông tin chi tiết và chính xác về biến động giá, giúp cải thiện đáng kể hiệu suất kinh doanh và quản lý rủi ro trong các lĩnh vực liên quan như chứng khoán và tiền tệ. \\ 
+Dự đoán giá kim loại quý như vàng không chỉ tập trung vào dự đoán giá toàn cầu  của 1 ngày hôm sau mà còn dự đoán giá trong tương lai xa hơn như 3 đến 5 tháng sau, dự đoán khoảng biến động giá, xu hướng biến động, mối liên hệ của giá các kim loại,... Do đó, nhiều trang điện tử dự báo chuyên nghiệp đã được thiết lập như Bloomberg, Kitco, LBmMA,... \\
+              Bằng cách so sánh và kiểm định nhiều phương pháp và mô hình dự báo từ kinh điển cho đến mới nhất, nhóm nghiên cứu kỳ vọng sẽ tìm ra được mô hình, thuật toán với kết quả khả quan nhất nhằm linh hoạt đáp ứng được nhu cầu ngày một cao của thị trường. Bài nghiên cứu của chúng em sử dụng bộ dữ liệu từ trang thông tin điện tử MetalPriceAPI để lấy giá vàng, bạch kim, bạc được ghi nhận trong quá khứ (lấy theo mệnh giá USD). 
+\section{Các nghiên cứu gần đây} 
 
-\maketitle
+\subsection{Nghiên cứu của nhóm tác giả Tawum Juvert Mbah, Haiwang Ye, Jianhua Zhang & Mei Long} 
 
-\section{Introduction}
-\label{sec:introduction}
-The volatility of gold(Au), silver(Ag) and platinum(Pt) prices has always been a hot spot in the investment and financial sectors. Predicting the price of these precious metals is not only important in supporting investors' investment decisions and market analysis, but also in providing detailed and accurate information on price movements, which greatly improves business performance and risk management in related areas such as securities securities and currencies.\\
-Predicting the price of precious metals like gold not only focuses on predicting the global price of 1 day but also predicting prices in the future such as 3 to 5 months later, predicting price fluctuations, fluctuation trends, the relationship of prices of metals, ... Therefore, many professional forecasting websites have been established such as Bloomberg, Kitco, LBmMA,...\\
-By comparing and testing many forecasting methods and models from classic to the latest, the research team expects to find the model and algorithm with the best results to flexibly meet the increasing demand of the market. Our research paper uses a dataset from the MetalPriceAPI website to derive historical recorded prices of gold, platinum, and silver (denominated in USD).
+Nghiên cứu này đã chọn ra sáu yếu tố ảnh hưởng đến thị trường đá vôi để mô phỏng và dự đoán xu hướng giá trong tương lai, bao gồm xi măng, vàng, than đá, năng lượng, lãi suất và giá đá vôi. Nghiên cứu sử dụng hai mô hình mạng nơ-ron sâu tiên tiến là RNN và ARIMA để mô phỏng và dự đoán giá đá vôi. Kết quả cho thấy, mô hình ARIMA đã có dự đoán tốt hơn so với mô hình RNN về xu hướng và biến động giá của đá vôi. Sự khác biệt chính giữa hai mô hình này nằm ở việc mô hình ARIMA có khả năng tạo ra kết quả chính xác hơn và thời gian huấn luyện ít hơn so với mô hình RNN. Do đó, mạng ARIMA được chứng minh là một phương pháp tinh vi và hiệu quả trong việc mô hình, phân tích và dự đoán giá của thị trường đá vôi. 
 
+\subsection{Nghiên cứu của Bojun Yin, Renguang Zuo, Yihui Xiong}
+Các nhà nghiên cứu sử dụng mô hình GRU để tạo bản đồ tiềm năng khoáng sản (Mineral Prospectivity Mapping - MPM) , sử dụng dữ liệu từ quận Baguio, Philipines. Các kết quả thu được nhấn mạnh tính hiệu quả của mô hình GRU trong MPM. Các khu vực cao điểm được phân biệt thể hiện mối quan hệ không gian chặt chẽ với các mỏ khoáng sản đã biết, cung cấp thông tin quan trọng cho các hoạt động khai thác khoáng sản tiếp theo trong khu vực nghiên cứu. 
+\subsection{Nghiên cứu của F.Javier Galán-Sales, Pablo Reina-Jiménez, Manuel Carranza-García, José María Luna-Romera}
+Nghiên cứu tiềm năng của việc sử dụng FFT như một công cụ biến đổi đặc trưng để cải thiện độ chính xác và hiệu quả của các mô hình dự báo chuỗi thời gian. Kết quả của nhóm nghiên cứu cho thấy rằng việc sử dụng FFT như một công cụ biến đổi đặc trưng vượt trội hơn các phương pháp biến đổi đặc trưng truyền thống trong việc dự báo độ chính xác và hiệu quả tính toán.
+\section{Tài nguyên} 
 
-\section{Related Works}
-The study, by authors Tawum Juvert Mbah, Haiwang Ye, Jianhua Zhang & Mei Long \cite{b1}, selected six factors influencing the limestone market to simulate and predict future price trends, including cement, gold, coal, energy, interest rates, and limestone prices. The study uses two advanced deep neural network models, RNN and ARIMA, to simulate and predict limestone prices. The results showed that the ARIMA model had better predictions than the RNN model about the trend and price movements of limestone. The main difference between these two models lies in the fact that the ARIMA model is capable of producing more accurate results and less training time than the RNN model. Therefore, the ARIMA network proved to be a sophisticated and effective method in modeling, analyzing, and predicting the price of the limestone market.\\
-The study by Bojun Yin, Renguang Zuo, Yihui Xiong \cite{b2}, used a GRU model to create a Mineral Prospectivity Mapping (MPM), using data from Baguio County, Philippines. The results obtained underscore the effectiveness of the GRU model in MPM. The distinguished peak areas exhibit a close spatial relationship with known mineral deposits, providing important information for further mining activities in the study area.\\
-There is also research by F.Javier Galán-Sales, Pablo Reina-Jiménez, Manuel Carranza-García, José María Luna-Romera \cite{b3}, which investigates the potential of using FFT as a characteristic transformational tool to improve the accuracy and efficiency of time series forecasting models. The team's results show that the use of FFT as a characterization transformation tool is superior to traditional characterization transformation methods in predicting computational accuracy and efficiency. 
-\\
-\section{Materials}
-\subsection{Dataset}
+\subsection{Các tập dữ liệu sử dụng }\label{AA}
+Bộ ba dataset thể hiện giá ba loại kim loại quý: vàng, bạc và platium trong khoảng thời gian từ 1/1/2018 đến 1/3/2024 được lấy nguồn từ các API do \url{https://metalpriceapi.com/} cung cấp. 
 
-The trio of datasets showing the prices of three precious metals: gold, silver and platinum for the period from January 1, 2018 to March 1, 2024 are sourced from APIs provided by https://metalpriceapi.com/.
-After calling the API to get data, the team converted from json to csv and obtained 3 csv files including: Gold price, Silver price and Platinum price.\\
-Within each dataset there are two columns:\\
-• Date: date of data entry (YYYY-MM-DD) format.\\
-• Value (USD per troy ounce): the price of the precious metal corresponds to the Date column (denomination USD).
+Sau khi gọi API để lấy dữ liệu, nhóm tiến hành chuyển đổi từ dạng json thành csv và thu được 3 file csv gồm: 
+\begin{itemize}
+    \item Giá vàng: \texttt{gold\_price\_2018\_2024.csv}
+    \item Giá bạc: \texttt{silver\_price\_2018\_2024.csv}
+    \item Giá platinum: \texttt{platium\_price\_2018\_2024.csv}
+\end{itemize}
+Trong mỗi tập dữ liệu gồm hai cột: 
+\begin{itemize}
+    \item \textbf{Date}: ngày thu nhập dữ liệu (định dạng YYYY-MM-DD).  
+    \item \textbf{Value (USD per troy ounce)}: giá của kim loại quý tương ứng với cột Date (mệnh giá USD).
+\end{itemize} 
 
-\subsection{Descriptive Statistics}
+\subsection{Thống kê miêu tả }
 \begin{table}[H]
-  \centering
-  \caption{Gold price, Silver price and Platinum price’s Descriptive Statistics}
+  \centering
+  \caption{Thống kê mô tả giá vàng, giá bạc và giá platinum}
 \begin{tabular}{|>{\columncolor{red!20}}c|c|c|c|}
-    \hline
-     \rowcolor{red!20} & Gold price & Silver price & Platinum price \\ \hline
-     Count & 2252 & 2251 & 2252 \\ \hline
-     Mean & 1673.567 & 20.531 & 940.485\\ \hline
-     Std & 262.337 & 4.131 & 106.855\\ \hline
-     Min & 1178.57 & 12.112 & 591.46\\ \hline
-     25\% & 1419.73 & 16.572 & 864.475\\ \hline
-     50\% & 1768.317 & 21.584 & 930.843\\ \hline
-     75\% & 1884.517 & 23.975 & 999.513\\ \hline
-     Max & 2085.54 & 29.748 & 1306.684\\ \hline
+    \hline
+     \rowcolor{red!20} & Giá vàng & Giá bạc & Giá platinum \\ \hline
+     Count & 2252 & 2251 & 2252 \\ \hline
+     Mean & 1673.567 & 20.531 & 940.485\\ \hline
+     Std & 262.337 & 4.131 & 106.855\\ \hline
+     Min & 1178.57 & 12.112 & 591.46\\ \hline
+     25\% & 1419.73 & 16.572 & 864.475\\ \hline
+     50\% & 1768.317 & 21.584 & 930.843\\ \hline
+     75\% & 1884.517 & 23.975 & 999.513\\ \hline
+     Max & 2085.54 & 29.748 & 1306.684\\ \hline
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.23\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{bibliography/Figure/boxplot_gold.png}
-    \caption{Gold price's boxplot}
-    \label{fig:1}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.23\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{bibliography/Figure/line_gold.png}
-    \caption{Gold price's line chart}
-    \label{fig:2}
-    \end{minipage}
-\end{figure}
 
 \begin{figure}[H]
-    \centering
-    \begin{minipage}{0.23\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{bibliography/Figure/boxplot_silver.png}
-    \caption{Silver price's boxplot}
-    \label{fig:1}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.23\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{bibliography/Figure/line_silver.png}
-    \caption{Silver price's line chart}
-    \label{fig:2}
-    \end{minipage}
-\end{figure}
+    \centering
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{bibliography/Figure/boxplot_gold.png}
+    \caption{Biểu đồ hộp của giá vàng}
+    \label{fig:1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{bibliography/Figure/line_gold.png}
+    \caption{Biểu đồ đường của giá vàng}
+    \label{fig:2}
+    \end{minipage}
+\end{figure} 
 
 \begin{figure}[H]
-    \centering
-    \begin{minipage}{0.23\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{bibliography/Figure/boxplot_pt.png}
-    \caption{Platinum price's boxplot}
-    \label{fig:1}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.23\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{bibliography/Figure/line_pt.png}
-    \caption{Platinum price's line chart}
-    \label{fig:2}
-    \end{minipage}
-\end{figure}
-\subsection{Tools}
-In the process of researching and analyzing data to forecast mineral prices, the team used several popular tools and software libraries, mainly implemented in the Python programming language. List of main tools and libraries used: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn,...
+    \centering
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{bibliography/Figure/boxplot_silver.png}
+    \caption{Biểu đồ hộp của giá bạc}
+    \label{fig:3}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{bibliography/Figure/line_silver.png}
+    \caption{Biểu đồ đường của giá bạc}
+    \label{fig:4}
+    \end{minipage}
+\end{figure} 
 
-\section{Methodology}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{bibliography/Figure/boxplot_pt.png}
+    \caption{Biểu đồ hộp của giá bạch kim}
+    \label{fig:5}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{bibliography/Figure/line_pt.png}
+    \caption{Biểu đồ đường của giá bạch kim}
+    \label{fig:6}
+    \end{minipage}
+\end{figure}
+
+
+
+
+\subsection{Công cụ sử dụng}
+Trong quá trình nghiên cứu và phân tích dữ liệu để dự báo giá khoáng sản, nhóm đã sử dụng một số công cụ và thư viện phần mềm phổ biến, chủ yếu được triển khai bằng ngôn ngữ lập trình Python. Danh sách các công cụ và thư viện chính được sử dụng: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn,... 
+\section{Phương pháp} 
+
 \subsection{Linear Regression}
-Linear regression, first introduced by statistician Sir Francis Galton in the late 19th century, is a statistical method used to model the relationship between a dependent variable and an independent variable (or more). Single linear regression has 1 independent variable, multiple linear regression has more than 1 independent variable.\\
-It builds a linear model by finding a straight line (if it is univariate regression) or a hyperplane (if it is multivariate regression) that predicts the best based on a linear relationship so that the difference between the predicted and actual values is minimal. \\
-Linear regression is widely applied to predict output values, considering the influence of variables in areas such as economics, finance, environment,...\\
-Simple linear regression equation: 
+Hồi quy tuyến tính (Linear Regression) được giới thiệu lần đầu bởi nhà thống kê Sir Francis Galton vào cuối thế kỷ 19, là một phương pháp thống kê dùng để mô hình hóa mối liên hệ giữa một biến phụ thuộc và một (hoặc nhiều) biến độc lập. Hồi quy tuyến tính đơn thì có 1 biến độc lập, hồi quy tuyến tính bội thì có nhiều hơn 1 biến độc lập.\\
+Nó xây dựng một mô hình tuyến tính bằng cách tìm một đường thẳng (nếu là hồi quy đơn biến) hoặc một siêu phẳng (nếu là hồi quy đa biến) dự đoán tốt nhất dựa trên quan hệ tuyến tính sao cho khác biệt giữa giá trị dự đoán và giá trị thực tế là nhỏ nhất.\\
+Hồi quy tuyến tính được ứng dụng rộng rãi để dự đoán giá trị đầu ra, xem xét ảnh hưởng của các biến số trong các lĩnh vực như kinh tế, tài chính, môi trường,...\\
+Phương trình hồi quy tuyến tính đơn biến: 
 \begin{samepage}
 \[Y=\beta_0+\beta_1X_1+\varepsilon\]
 \end{samepage}
-Multiples linear regression equation with k independent variables:
+Phương trình hồi quy tuyến tính bội với k biến độc lập:
 \begin{samepage}
 \[Y=\beta_0+\beta_1X_1+...+\beta_kX_k+\varepsilon\]
 \end{samepage}
-Where:\\
-	\indent\textbullet\ Y is the dependent variable (Target Variable).\\
-	\indent\textbullet\ \(X_1, X_2, \ldots, X_k\) are the independent (explanatory) variables.\\
-	\indent\textbullet\ \(\beta_0\) is the intercept term.\\
-	\indent\textbullet\ \(\beta_1,..., \beta_k\) are the regression coefficients for the independent variables.\\
-	\indent\textbullet\ \(\varepsilon\) is the error term.
-
-\subsection{ARIMA}
-ARIMA, or self-regression integrated moving average model, is a method of statistical analysis that uses time series data to better understand a data set or predict future trends. In general, ARIMA is a combined model of 2 self-regression processes and a sliding average. Past data will be used to forecast future data.\\
-The ARIMA model stands for Auto Regression (AR), Moving Average (MA) and Integrated Differential (I) integration. \\
-\indent\textbullet\ \textbf{Integrated (I) d:} A process of co-integration, or falsehood, to compare the differences between d observations.
-\\
-\indent\textbullet\ \textbf{Auto regression (AR) p}: This is a self-regression component consisting of the set of lags of the current variable. The latency of degree p is the value that goes back to the past p time step of the string. The long or short delay in the AR process depends on the delay parameter p. 
-\\
-\indent\textbullet\ \textbf{Moving average (MA) q}: The process of moving average (MA) q is understood as the process of shifting or changing the average value of the series over time. The moving average process will find a linear connection between the current data and q of the previous t-error.
-\\
-The ARIMA regression equation(p, d, q) can be expressed as:
-Simple linear regression equation: 
-\begin{samepage}
-\[\Delta x_t = \sum_{i=1}^{p} \alpha_i \Delta (x_{t-i}) +  \sum_{i=1}^{q} \beta_i \varepsilon_{t-i}\]
-\end{samepage}
-
-\subsection{RNN}
-An RNN (Recurrent neural network) is a type of neural network commonly used for sequential data such as time series. RNNs use the output of the previous step as input to the current step, whereas traditional Neural Networks all inputs and outputs are independent of each other. 
-\\
-The main and most important characteristic of RNNs is the hidden state. This state remembers the previous input of the network. It uses the same weight for the input of each layer in the network.
-\\
-RNN computes the hidden state denoted as \( h_t \) based on the current input \( x_t \) and the previous hidden state \( h_{t-1} \):
-
-\[
-h_t = \sigma_h(W_{xh} x_t + W_{hh} h_{t-1} + b_h)
-\]
-
-The output \( y_t \) of the RNN is computed based on the current hidden state \( h_t \):
-
-\[
-y_t = \sigma_y(W_{hy} h_t + b_o)
-\]
-Where:\\
-
-\begin{itemize}
-  \item \( \sigma_h, \sigma_y \): Activation functions for the hidden layer and the output layer.
-  \item \( W_{xh} \): Weight matrix from the input layer to the hidden layer.
-  \item \( W_{hh} \): Weight matrix from the hidden layer to itself.
-  \item \( W_{hy} \): Weight matrix from the hidden layer to the output layer.
-\end{itemize}
-These parameters are updated using Backpropagation. However, since RNNs operate on sequential data, they use Backpropagation Through Time (BPTT).
-
-Unlike traditional backpropagation that only computes errors for the final output, BPTT calculates errors for each time step in the sequence and propagates them back through time, updating the parameters of the entire network to minimize the total error.
-
+Trong đó:\\
+        \indent\textbullet\ Y là giá trị dự đoán của biến phụ thuộc (Y) ứng với giá trị các biến độc lập \(X_1, X_2, \ldots, X_k\)\\
+        \indent\textbullet\ \(\beta_0\) là hệ số chặn, là giá trị dự đoán của Y khi giá trị của các biến độc lập bằng 0\\
+        \indent\textbullet\ \(\beta_1,..., \beta_k\) là hệ số tương quan hồi quy – cho thấy mức độ mạnh yếu trong mối liên hệ của Y với các biến độc lập.\\
+        \indent\textbullet\ \(X_1, X_2, \ldots, X_k\) là giá trị các biến độc lập để dự đoán Y.\\
+        \indent\textbullet\ \(\varepsilon\) là sai số của dự đoán, là phần biến thiên không thể giải thích bởi mối liên hệ tuyến tính của X và Y.
 
 \subsection{GRU}
-A gate-tode retrospective neural network (GRU) is a gate mechanism in regression neural networks, which is a simpler variant of Long Term Memory (LSTM) networks. The GRU can process sequential data such as text, articles, and time series.
-\\
-The GRU uses a gateway mechanism to selectively update the hidden state of the network at each time step. The gateway mechanism is used to control the incoming and outgoing data flow of the network. The GRU has 2 port mechanisms: the delete port and the update port. 
-\\
-The deletion portal decides how much of the previous state is retained, while the update portal decides how much of the same part of the old hidden state is the same as the old hidden state. The output of the GRU is computational based on the number of updated hidden states, making it possible for the model to 'remember' important information from the past and 'look' at new information to adjust to the current state.
-The equation for calculating the delete port, update port, and hidden state number of the GRU is as follows: \\
- \textbf{Reset gate:} 
-
+Mạng Neural hồi tiếp nút có cổng (GRU) là một cơ chế cổng trong các mạng nơ ron hồi quy, là một biến thể đơn giản hơn của mạng Bộ nhớ ngắn hạn dài (LSTM). GRU có thể xử lý dữ liệu tuần tự như văn bản, bài viết và chuỗi thời gian.
+GRU sử dụng cơ chế cổng để cập nhật có chọn lọc trạng thái ẩn của mạng tại mỗi bước thời gian. Cơ chế cổng được dùng để kiểm soát luồng dữ liệu đi vào và đi ra của mạng. GRU có 2 cơ chế cổng: cổng xóa và cổng cập nhật. \\
+Cổng xóa quyết định bao nhiêu phần mà trạng thái trước đây được giữ lại, còn cổng cập nhật quyết định trạng thái ẩn mới có bao nhiêu phần giống trạng thái ẩn cũ. Đầu ra của GRU là tính toán dựa trên số trạng thái ẩn được cập nhật, giúp mô hình có thể ‘nhớ’ thông tin quan trọng từ quá khứ và ‘nhìn’ vào thông tin mới để điều chỉnh trạng thái hiện tại.\\ toán cổng xóa, cổng cập nhật, và số trạng thái ẩn của GRU như sau:\\
+Cổng xóa:
 \[
 R_t = \sigma(X_t W_{xr} + H_{t-1} W_{hr} + b_r)
 \]
- \textbf{Update gate:} 
+Cổng cập nhật:
 \[
 Z_t = \sigma(X_t W_{xz} + H_{t-1} W_{hz} + b_z)
 \]
-Where:\\
-
+Trong đó:\\
 \begin{itemize}
-    \item $X_t$: input at the current time step.
-    \item $H_{t-1}$: is the hidden state in the previous step.
-    \item $W_{xr}, W_{xz} \in \mathbb{R}^{d \times h}$ and $W_{hr}, W_{hz} \in \mathbb{R}^{h \times h}$: weights.
-    \item $b_r, b_z \in \mathbb{R}^{1 \times h}$: the cliché parameters.
-    \item $\sigma$: sigmoid function so that the 2 obtained values belong to the interval $(0,1)$.
-\end{itemize}
+    \item $X_t$: đầu vào ở bước thời gian hiện tại.
+    \item $H_{t-1}$: là trạng thái ẩn ở bước trước đó.
+    \item $W_{xr}, W_{xz} \in \mathbb{R}^{d \times h}$ và $W_{hr}, W_{hz} \in \mathbb{R}^{h \times h}$: là các trọng số.
+    \item $b_r, b_z \in \mathbb{R}^{1 \times h}$: là các tham số độ chênh.
+    \item $\sigma$: là hàm sigmoid để 2 giá trị thu được thuộc khoảng $(0,1)$.
+\end{itemize} 
 
-\vspace{-1em} % Adjust this value to reduce space
+\vspace{-1em} % Điều chỉnh giá trị này để giảm khoảng cách
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{bibliography/Figure/GRU.jpg}
-    \caption{GRU Model}
-    \label{fig:GRU_Model}
+    \centering
+    \includegraphics[width=0.5\textwidth]{bibliography/Figure/GRUModel.png}
+    \caption{Mô hình GRU}
+    \label{fig:GRU_Model}
+\end{figure} 
+
+\subsection{PatchTST}
+PatchTST là mô hình sử dụng Transformer để dự đoán đa biến và học biểu diễn tự giám sát. Dựa trên hai phần chính: \\
+\begin{enumerate}
+    \item \textbf{Vá dữ liệu (Patching) :} phân đoạn chuỗi thời gian thành các đoạn nhỏ cấp độ chuỗi con, được sử dụng làm các token đầu vào cho Transformer.
+    \item \textbf{Kênh truyền độc lập:} mỗi kênh chứa một chuỗi thời gian đơn biến duy nhất, sử dụng cùng trọng số Transformer và trọng số nhúng trên tất cả các chuỗi. 
+\end{enumerate}
+Kiến trúc mô hình PatchTST sử dụng bộ mã hóa Transformer gốc, mỗi chuỗi đơn biến có độ dài \( L \) được chia thành các mảnh, đưa vào Transformer một cách độc lập, và tạo ra \( T \) giá trị tương lai \( (x_{L+1}, \ldots, x_{L+T}) \).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{bibliography/Figure/PatchTSTWorkflow.png}
+    \caption{Mô hình PatchTST}
+    \label{fig:PatchTST_Model}
 \end{figure}
+Dữ liệu chuỗi thời gian đa biến \( x \in \mathbb{R}^{M \times L} \) được chia thành các chuỗi đơn biến \( x^{(i)} \in \mathbb{R}^{1 \times L} \) với \( i = 1, \ldots, M \), sau đó được đưa vào Transformer Backbone để xử lý. Các quy trình tiến tới (forward process) là độc lập, và các dự đoán đầu ra \( \hat{x}^{(i)} \in \mathbb{R}^{1 \times T}, i = 1, \ldots, M \) được gộp lại để tạo ra đầu ra cuối cùng \( \hat{x} \in \mathbb{R}^{M \times T} \). 
 
-
-\subsection{LSTM}
-Long short-term memory (LSTM) is a type of regression neural network (RNN) designed to solve the problem of disappearing gradients in traditional RNNs. The advantage of LSTM is its ability to handle long distances between information, making it useful in applications such as speech recognition, machine translation, and time series analysis.
-\\
-An LSTM unit consists of a cell, an input port, an output port, and a forgotten port. The cell remembers information for long periods of time, while the gates control the flow of information into and out of the cell. The gateway forgets to decide what information to ignore, the input gateway decides what new information to store, and the output port decides what information to output, helping the LSTM network maintain useful long-term dependencies to make predictions.
-\\
-The forgotten port deletes information that is no longer useful from the memory cell. The equation of the forgotten gate:\\
-\begin{equation*}
-    f_t = \sigma(W_f [h_{t-1}, x_t] + b_f)
-\end{equation*}
-
-Where:
+PatchTST có hai biến thể:
 \begin{itemize}
-    \item $\sigma$: Sigmoid activation function
-    \item $W_f$ and $b_f$: Weights and biases of the forget gate
+    \item \textbf{PatchTST có giám sát:} Sử dụng dữ liệu có nhãn.
+    \item \textbf{PatchTST tự giám sát:} Không yêu cầu dữ liệu có nhãn.
 \end{itemize}
 
-The input gate will add useful information to the memory cell. The equation for the input gate is:
-\\
-\begin{align*}
-    i_t &= \sigma(W_i [h_{t-1}, x_t] + b_i) \\
-    \tilde{C}_t &= \tanh(W_c [h_{t-1}, x_t] + b_c) \\
-    C_t &= f_t \cdot C_{t-1} + i_t \cdot \tilde{C}_t
-\end{align*}
-
-Where:
-\begin{itemize}
-    \item $i_t$: Input at time t
-    \item $C_{t-1}$: Memory cell at time t-1
-    \item $W_c, b_c$: Weights and biases of the memory cell
-    \item $\tanh$: Tanh activation function
-\end{itemize}
-
-The output gate will extract useful information from the current memory cell to present as output. The equation for the output gate is:
-
-\begin{equation*}
-    o_t = \sigma(W_o [h_{t-1}, x_t] + b_o)
-\end{equation*}
-    
-
-\subsection{FFT}
-
-The fast Fourier transform (FFT) is an extremely efficient algorithm for converting a time domain discrete signal to a frequency domain based on the discrete Fourier transform (DFT). The DFT transform analyzes a sequence of numbers into components at different frequencies. This transformation helps identify the main frequency components of the time series, thereby forecasting future values based on these components.
-
-Discrete Fourier transform - DFT of a given discrete signal 
-\[
-x(n) = [x_0, x_1, \ldots, x_{N-1}]
-\] 
-calculated by the following expression:
-
-\[
-X(k) = 
-\begin{cases} 
-\sum_{n=0}^{N-1} x(n) e^{-i \frac{2\pi}{N} kn} & \text{If } 0 \le k \le N-1 \\
-0 & \text{If } k \text{ belongs to the rest}
-\end{cases}
-\]
-
-Where: \( i \) is the imaginary unit.
-
-DFT transform calculation has a complexity of \(O(N^2)\).
-
-FFT was created to overcome the processing speed of DFT. 
-
-Suppose that the sequence \(x(n)\) has length \( N = 2^i \), if there is no form of power 2, then add some form 0 after the sequence \(x(n)\). The basic principle on which FFT algorithms are based is to divide the sample DFT N into smaller DFTs continuously. 
-
-For \( N = 2^i \), we will first divide the sample DFT of size \( N \) into \( N/2 \) sample DFTs, then divide each of these sample DFTs into \( N/4 \) samples, and so on until the size of the DFT is \( N = 2 \). In essence, it is recursive. Hence, the complexity of the FFT is defined as \( O(N \log_2(N)) \).
-
-FFT algorithm: 
-\[
-X(k) = \sum_{n=0}^{\frac{N}{2}-1} x_{2n} e^{-i \frac{2\pi}{N} (2n) k} + \sum_{n=0}^{\frac{N}{2}-1} x_{2n+1} e^{-i \frac{2\pi}{N} (2n+1) k}
-\]
-
-\subsection{N-HiTS}
-The N-HiTS (Neural Hierarchical Interpolation for Time Series) algorithm is an advanced method for time series forecasting, built on the Neural Basis Expansion Analysis (N-BEATS) framework. N-HiTS aims to improve accuracy and computational efficiency, particularly for long-term forecasts. It introduces key innovations such as multi-rate signal sampling and hierarchical multi-rate aggregation to build forecasts in a hierarchical manner, reducing computational requirements while enhancing accuracy.
-
-\subsubsection{Multi-Rate Signal Sampling}
-
-Each block in the N-HiTS architecture uses a MaxPool layer with kernel size \( k_\ell \) to focus on different scales of the input signal. This multi-rate sampling ensures that each block analyzes the components of the input at different sample rates, allowing blocks with larger kernels to focus on larger-scale components and blocks with smaller kernels to focus on finer details. Formally, with input \( y_{t-L:t,\ell} \) for block \( \ell \), the output after pooling is:
-\[
-y^{(p)}_{t-L:t,\ell} = \text{MaxPool}(y_{t-L:t,\ell}, k_\ell)
-\]
-
-\subsubsection{Nonlinear Regression}
-
-After multi-rate sampling, each block performs nonlinear regression to compute forward \( \theta^f_\ell \) and backward \( \theta^b_\ell \) coefficients for interpolation. These coefficients are generated using a multilayer perceptron (MLP) that processes the pooled input:
-\[
-h_\ell = \text{MLP}_\ell(y^{(p)}_{t-L:t,\ell})
-\]
-\[
-\theta^f_\ell = \text{Linear}^f(h_\ell)
-\]
-\[
-\theta^b_\ell = \text{Linear}^b(h_\ell)
-\]
-
-\subsubsection{Hierarchical Interpolation}
-
-In typical multi-horizon forecasting models, the output size directly corresponds to the forecast horizon \( H \). This often leads to high computational costs and increased model complexity. N-HiTS mitigates this by using hierarchical interpolation, where the magnitude of the forecast coefficients \( \theta^f_\ell \) is controlled by the expression rate \( r_\ell \) as follows:
-\[
-|\theta^f_\ell| = \lceil r_\ell H \rceil
-\]
-
-To recover the full forecast horizon \( H \), interpolation is applied:
-\[
-\hat{y}_{\tau,\ell} = g(\tau, \theta^f_\ell), \forall \tau \in \{t+1, ..., t+H\}
-\]
-\[
-\tilde{y}_{\tau,\ell} = g(\tau, \theta^b_\ell), \forall \tau \in \{t-L, ..., t\}
-\]
-
-The interpolation function \( g \) can vary in smoothness, with options such as nearest neighbor, piecewise linear, and cubic interpolation explored.
-
-\subsubsection{Block and Stack Structure}
-
-N-HiTS is composed of multiple blocks organized into stacks, with each stack designed to specialize in capturing different characteristics of the time series data. Each block contains an MLP that produces backcast \( \tilde{y}_{t-L:t,\ell} \) and forecast \( \hat{y}_{t+1:t+H,\ell} \) outputs. The blocks are connected in a doubly residual stacking manner, allowing each block to refine the input signal for subsequent blocks and gradually improve the forecasts.
-Formally, the input to block \( \ell \) in stack \( s \) can be represented as:
-\[
-y_{t-L:t,\ell} = y_{t-L:t} - \sum_{i=1}^{\ell-1} \tilde{y}_{t-L:t,i}
-\]
-
-The output of each block is then aggregated to form the final forecast:
-\[
-\hat{y}_{t+1:t+H} = \sum_{\ell=1}^{B} \hat{y}_{t+1:t+H,\ell}
-\]
-    
 \subsection{TBATS}
-TBATS is an advanced time series prediction model, improved upon the BATS model, and developed by Rob J. Hyndman and Nikolaos Kourentzes. The TBATS model was created in 2011 with the aim to forecast time series with multiple seasonal cycles (cycles in hours, days, quarters, years,..). TBATS can handle complex crop forms such as non-integer, non-nested, and long-cycle seasons.
+TBATS là một mô hình dự báo chuỗi thời gian nâng cao, cải tiến từ mô hình BATS, và được phát triển bởi Rob J. Hyndman và Nikolaos Kourentzes. Mô hình TBATS được tạo ra vào năm 2011 với mục đích để dự báo chuỗi thời gian với nhiều chu kỳ mùa vụ (chu kỳ theo giờ, ngày, quý, năm,..). TBATS có thể xử lý các dạng mùa vụ phức tạp như tính mùa vụ không phải số nguyên, không lồng nhau và mùa vụ có chu kỳ dài.
  \\
- TBATS is less common and less commonly used than other models in the ARIMA model genealogy. TBATS consists of 5 components:\\
-\indent\textbullet\ \textbf{Trigonometric seasonality: } uses trigonometric transformation (sin-cos) to model seasonal factors with a fixed frequency.
+TBATS thì ít phổ biến và ít được dùng hơn so với các mô hình khác trong phả hệ mô hình ARIMA. TBATS gồm 5 thành phần:\\
+\indent\textbullet\ \textbf{Trigonometric seasonality} (tính mùa vụ theo lượng giác): dùng phép biến đổi lượng giác (sin-cos) để mô hình các yếu tố mùa vụ có tần suất cố định.
 \\
-\indent\textbullet\ \textbf{Box-Cox transformation:}: handles the heterogeneity of data, which improves data distribution and makes their variance more uniform. 
+\indent\textbullet\ \textbf{Box-Cox transformation} (hàm biến đổi Box-Cox): xử lý tính không đồng nhất của dữ liệu, giúp cải thiện phân phối dữ liệu và làm cho phương sai của chúng đồng đều hơn.
 \\
-\indent\textbullet\ \textbf{ARMA errors (slippage average combined self-regression error):}: helps predict random errors that are not seasonal.\\
-\indent\textbullet\ \textbf{Trend components:} shows a model that predicts an upward and downward trend.\\
-\indent\textbullet\ \textbf{Seasonal components: } remove cyclic fluctuations from data.
+\indent\textbullet\ \textbf{ARMA errors} (sai số tự hồi quy kết hợp trung bình trượt): giúp dự đoán các sai số ngẫu nhiên không có tính mùa vụ.\\
+\indent\textbullet\ \textbf{Trend components} (xu hướng): thể hiện mô hình dự đoán xu hướng tăng, giảm.\\
+\indent\textbullet\ \textbf{Seasonal components} (các yếu tố mùa vụ): loại bỏ các biến động chu kỳ khỏi dữ liệu.
 \\
-Formula:\\
+Công thức:\\
 \begin{itemize}
-    \item \textbf{Box-Cox transformation:}
+    \item \textbf{Hàm biến đổi Box-Cox:}
     \begin{itemize}
-        \item Linear case:
+        \item Trường hợp tuyến tính:
         \[
         y_t^{(\omega)} =
         \begin{cases}
@@ -388,8 +253,8 @@ Formula:\\
         \[
     y_t^{(\omega)} = l_{t-1} + \phi b_{t-1} + \sum_{i=1}^{T} s_{t-m_i}^{(i)} + d_t
     \]
-        
-        \item Non-linear case:
+
+        \item Trường hợp phi tuyến tính:
         \[
         y_t^{(\omega)} = w' x_{t-1} + \varepsilon_t
         \]
@@ -397,26 +262,26 @@ Formula:\\
         x_t = F x_{t-1} + g \varepsilon_t
         \]
 
-        Where \( m_1, \ldots, m_T \) refers to seasonal cycles, \( l_t \) is the local level of the cycle \( t \), \( st^(i) \) represents the seasonal composition at time \( t \), \( \mathbf{w'} \) is a vector current, \( \mathbf{g} \) is a column vector, \( \mathbf{F} \) is a matrix, and \( \mathbf{x}_t \) is the unobserved state vector at time \( t \) (future). 
+        Trong đó, \( m_1, \ldots, m_T \) nói về chu kỳ mùa, \( l_t \) là mức riêng của chu kỳ \( t \), \( st^(i) \) biểu diễn cho thành phần mùa vụ tại thời điểm \( t \), \( \mathbf{w'} \) là một dòng véc-tơ, \( \mathbf{g} \) là một cột véc-tơ, \( \mathbf{F} \) là một ma trận và \( \mathbf{x}_t \) là véc-tơ trạng thái không quan sát được tại thời điểm\( t \) (tương lai). 
     \end{itemize}
-    \item \textbf{The function handles with smoothing method – trend damping, finding ARMA coefficients, specific level:}
+    \item \textbf{Hàm xử lý với phương pháp làm mịn – giảm đà xu hướng (trend damping), tìm các hệ số ARMA, mức riêng.}
     \begin{align*}
     l_t &= l_{t-1} + \phi b_{t-1} + \alpha d_t \\
     d_t &= \sum_{i=1}^{p} \varphi_i d_{t-i} + \sum_{i=1}^{q} \theta_i \varepsilon_{t-i} + \varepsilon_t \\
     b_t &= (1 - \phi)b + \phi b_{t-1} + \beta d_t
     \end{align*}
-    Where \( b_t \) is the short-term trend in the period \( t \), \( d_t \) is about the coefficient ARMA(\( p \), \( q \)) and the error \( \varepsilon_t \) is taken from the white noise process with mean = 0 and fixed variances \( \sigma^2 \), \( \alpha \) and \( \beta \) and \( \gamma_i \) (\( i = 1, \ldots, T \)) are the smoothing coefficients, \( i \) is the \( i \)-component coefficient of the sliding average (MA). The Gardener & McKenzie smoothing trend with \( \phi \) parameter is used in the Snyder direction to make \( b_t \).
+    Trong đó, \( b_t \) là xu hướng ngắn hạn trong chu kỳ \( t \), \( d_t \) nói về hệ số ARMA(\( p \), \( q \)) và sai số \( \varepsilon_t \) lấy từ quá trình nhiễu trắng với trung bình bằng 0 và phương sai cố định \( \sigma^2 \), \( \alpha \) và \( \beta \) và \( \gamma_i \) (\( i = 1, \ldots, T \)) là các hệ số làm mịn, \( \theta_i \) là hệ số thành phần i của trung bình trượt (MA). Xu hướng làm mịn Gardener & McKenzie với tham số \( \phi \) được sử dụng theo hướng Snyder để tạo nên \( b_t \).
 
-    
-    \item \textbf{Trigonometric transform function:}
+
+    \item \textbf{Hàm biến đổi lượng giác:}
     \[
     s_t^{(i)} = \sum_{j=i}^{k_i} s_{j,t}^{(i)}
     \]
     \[
     k_i = 
     \begin{cases} 
-    \frac{m_i}{2} & \text{if the value of season i is even,} \\
-    \frac{(m_i - 1)}{2} & \text{if the value of season i is odd}
+    \frac{m_i}{2} & \text{nếu giá trị của mùa i là chẵn,} \\
+    \frac{(m_i - 1)}{2} & \text{nếu giá trị của mùa i là lẻ}
     \end{cases}
     \]
     \begin{align*}
@@ -424,7 +289,7 @@ Formula:\\
     s_{j,t}^{*(i)} &= -s_{j,t-1} \sin \lambda_j^{(i)} + s_{j,t-1}^{*(i)} \cos \lambda_j^{(i)} + \gamma_2^{(i)} d_t \\
     \lambda_j^{(i)} &= 2\pi j / m_i
     \end{align*}
-In particular, \( \gamma_1 \) and \( \gamma_2 \) are the smoothing parameters, \( s_{j,t}^{(i)} \) are the random growth rates in the interval \( s_j^{*(i)} \).
+Trong đó, \( \gamma_1 \) và \( \gamma_2 \) là tham số làm mịn, \( s_{j,t}^{(i)} \) là mức độ tăng trưởng ngẫu nhiên trong khoảng thời gian \( s_j^{*(i)} \).
 
 
 \end{itemize}
@@ -436,107 +301,44 @@ In particular, \( \gamma_1 \) and \( \gamma_2 \) are the smoothing parameters, \
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{bibliography/Figure/tbats.png}
-    \caption{TBATS Work-Flow}
+    \caption{Hình luồng hoạt động của mô hình TBATS}
     \label{fig:tbats_workflow}
 \end{figure}
 
-\subsection{SES}
-Simplified Exponential Smoothing (SES) is a simple and effective time forecasting method used to smooth time series data and predict future values. SES is especially useful when short-term forecasting is needed in data that does not have a clear trend or seasonality. This method works by applying an exponentially decreasing weight to previous observations, which smooths out random fluctuations in the data. 
-\\
-Formula: 
-\begin{equation}
-s_t = \alpha x_t + (1 - \alpha) s_{t-1} + \alpha (x_t - s_{t-1})
-\end{equation}
+\textbf{Lưu ý}: để có được mô hình TBATS cuối cùng thì có thể thêm hoặc bỏ các phần xử lý: biến đổi Box-Cox, làm mịn xu hướng (Trend Damping), tính sai số ARMA nhằm tạo được mô hình tốt nhất.
 
-\begin{itemize}
-  \item $s_t$: predict value
-  \item $s_{t-1}$: previous predict value
-  \item $\alpha$: smoothing coefficient $(0 < \alpha < 1)$
-  \item $t$: timestamp
-\end{itemize}
-When the value of \( \alpha \) is large (close to 1), the degree of smoothing decreases. This means that the SES algorithm will have less smoothing and will react more strongly to the most recent changes in the data. The predicted values will be close to the most recently observed values.
-
-\subsection{N-HiTS}
-N-HiTS, an enhanced method of N-BEATS for more accurate and efficient prediction for long-distance forecasting. N-HiTS uses multi-speed sampling and multi-scale composite combinations to build hierarchical forecasts, reducing computational requirements. Similar to N-BEATS, it uses a local non-linear projection onto base functions through blocks organized into stacks. 
-\\
-Each block of the perceptron multilayer generates coefficients for predicted and reverse predicted outputs. The method consists of S stacks, each with B cubes containing MLP to predict forward and backward base function coefficients. \\
-N-HiTS combines the following ideas and techniques:
+\section{Kết quả thực nghiệm}
+\subsection{Các phương pháp đánh giá}
 \begin{enumerate}
-  \item \textbf{Hierarchical Forecasting:} This method performs hierarchical forecasting, meaning that the forecast is carried out through different levels of the forecast length. This helps reduce computational requirements and improve the accuracy of the forecast.
-  
-  \[
-  y_t = g(\theta_f)
-  \]
-  
-  \( y_{t+1:t+H} \) is a series of forecast values in the future from time \( t+1 \) to \( t+H \).
-
-  \( \theta_f \) are the parameters of the model, including the coefficients of the base and backcast models.
-
-  \( g \) is the time series model function that forecasts future values.
-
-  \item \textbf{N-HiTS Sampling:} N-HiTS uses multi-scale temporal sampling to create a comprehensive representation of the data, improving the efficiency and accuracy of the model.
-
-  \item \textbf{Nonlinear Base Projection:} In N-HiTS, nonlinear base projection is performed to improve the model. Each block consists of a multilayer perceptron (MLP) to create the base forecast and backcast through a shared projection.
-
-  \item \textbf{Temporal Interpolation:} To forecast data in both the short and long term, N-HiTS interpolates the time series data. Because the forecast is carried out in multiple steps, it provides a better temporal interpolation function that combines the backcast and forecast across the required time horizon.
-\end{enumerate}
-
-
-\subsection{PatchTST}
-PatchTST is a model that uses Transformers for multivariate forecasting and self-supervised representation learning. It is based on two main components:
-\begin{enumerate}
-    \item \textbf{Patching:} Segmentation of time series into small subseries-level segments, used as input tokens for the Transformer.
-    \item \textbf{Channel-independence:} Each channel contains a single univariate time series, sharing the same embedding and Transformer weights across all series.
-\end{enumerate}
-
-The PatchTST architecture uses the vanilla Transformer encoder, where each univariate series of length \( L \) is segmented into patches, fed independently into the Transformer, and produces \( T \) future values \( (x_{L+1}, \ldots, x_{L+T}) \).
-
-\ 
-\\
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{bibliography/Figure/PatchTST.png}
-    \caption{PatchTST Model}
-    \label{fig:PatchTST_Model}
-\end{figure}
-The multivariate time series data \( x \in \mathbb{R}^{M \times L} \) is segmented into univariate series \( x^{(i)} \in \mathbb{R}^{1 \times L} \) for \( i = 1, \ldots, M \), and then fed into the Transformer Backbone for processing. The forward process is independent, and the output predictions \( \hat{x}^{(i)} \in \mathbb{R}^{1 \times T}, i = 1, \ldots, M \) are concatenated to produce the final output \( \hat{x} \in \mathbb{R}^{M \times T} \).
-
-PatchTST has two variants:
-\begin{itemize}
-    \item \textbf{Supervised PatchTST:} Uses labeled data.
-    \item \textbf{Self-Supervised PatchTST:} Does not require labeled data.
-\end{itemize}
-\section{Result}
-\subsection{Evaluation Metrics}
-\begin{enumerate}
-    \item \textbf{Mean Absolute Percentage Error} (MAPE) is the average of the absolute percentage differences between the actual and predicted values.
+    \item \textbf{Mean Absolute Percentage Error} (MAPE) là trung bình cộng phần trăm độ lệch tuyệt đối giữa giá trị dự đoán và giá trị thực.
     \begin{align*}
     MAPE &= \frac{1}{n} \sum_{i=1}^n \left|\frac{y_i - \hat{y}i}{y_i}\right| \cdot 100 \
     \end{align*}
-    \item \textbf{Root Mean Square Error} (RMSE) is the square root of the mean of the squared differences between the actual and predicted values.
+    \item \textbf{Root Mean Square Error} (RMSE) là căn bậc hai của trung bình bình phương độ lệch giữa giá trị dự đoán và giá trị thực tế.
     \begin{align*}
     RMSE &= \sqrt{\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}i)^2} \
     \end{align*}
-    \item \textbf{Mean Average Error} (MAE) is the average of the absolute differences between the actual and predicted values.
+    \item \textbf{Mean Average Error} (MAE) là trung bình độ lệch tuyệt đối giữa giá trị dự đoán và giá trị thực tế.
     \begin{align*}
     MAE &= \frac{1}{n} \sum_{i=1}^n |y_i - \hat{y}i| \
     \end{align*}
 \end{enumerate}
 
-\indent Where:
+\indent Trong đó:
 \begin{itemize}
-    \item $n$ is the total number of observations
-    \item $y_i$ is the $i$-th actual observation
-    \item $\hat{y}_i$ is the $i$-th predicted observation
+    \item $n$ là tổng số quan sát
+    \item $y_i$ là giá trị thực tế của quan sát thứ i.
+    \item $\hat{y}_i$ là giá trị dự đoán của quan sát thứ i.
 \end{itemize}
 
-\subsection{Experimental Results and Evaluation}
 
-\section{Conclusion}
+\subsection{Kết quả thực nghiệm và đánh giá}
 
-\indent When considering the horizontal analysis, for gold price data, the best ratio for the models is 7:3, with the best results occurring 5 times. The second-best ratio is 8:2 (3 times), and the worst is 9:1 (1 time). Similarly, for platinum price data, the best ratio is 8:2 (5 times), followed by 9:1 (3 times) and 7:3 (1 time). For silver price data, the worst ratios are 9:1 (2 times) and 7:3 (2 times), while the best is 8:2 (5 times). Thus, the best overall ratio for all data is 8:2.
+\section{Kết luận}
 
-\indent Vertically, for each ratio, corresponding to each validation method, the we will select the top 3 forecasting models; top 1, 2, and 3 will be assigned scores of 3, 2, and 1, respectively. The model with the highest total score will be chosen. From there, the top 3 models for each data set will be selected.
+\indent Xét theo chiều ngang, với dữ liệu giá vàng thì tỉ lệ tốt nhất cho các mô hình là 7:3 với số lần có kết quả tốt nhất là 5, tỉ lệ tốt thứ hai là 8:2 (4 lần), kém nhất là tỉ lệ 9:1 (1 lần). Tương tự với dữ liệu giá bạch kim thì tốt nhất là tỉ lệ 8:2 (5 lần), tiếp đó là tỉ lệ 9:1 (4 lần) và 7:3 (1 lần). Với dữ liệu giá bạc thì kém nhất là tỉ lệ 7:3 (2 lần) và 9:1 (3 lần) và tốt nhất là tỉ lệ 8:2 (5 lần). Như vậy tỉ lệ tốt nhất cho toàn bộ dữ liệu là 8:2.
+
+\indent Xét theo chiều dọc, trong với mỗi tỉ lệ, ứng với mỗi phương pháp kiểm định, nhóm nghiên cứu sẽ chọn ra 3 mô hình dự báo tốt nhất; top 1, 2, 3, sẽ được gán hệ số 3, 2, 1 và mô hình nào có tổng hệ số cao nhất thì chọn. Từ đó, chọn ra 3 mô hình tốt nhất của mỗi bộ dữ liệu.
 
 \begin{table}[h!]
     \centering
@@ -545,41 +347,21 @@ PatchTST has two variants:
     \small
     \begin{tabular}{|c|c|c|c|c|c|}
         \hline
-        \textbf{Dataset} & \textbf{Ranking} & \textbf{Ratio 7:3} & \textbf{Ratio 8:2} & \textbf{Ratio 9:1} & \textbf{3 best models} \\ \hline
-        \multirow{3}{*}{Gold price} & Top 1 & GRU (9) & GRU (9) & LSTM (9) & GRU \\ \cline{2-6} 
+        \textbf{Bộ dữ liệu} & \textbf{Xếp hạng} & \textbf{Tỉ lệ 7:3} & \textbf{Tỉ lệ 8:2} & \textbf{Tỉ lệ 9:1} & \textbf{3 mô hình tốt nhất} \\ \hline
+        \multirow{3}{*}{Giá vàng} & Top 1 & GRU (9) & GRU (9) & LSTM (9) & GRU \\ \cline{2-6} 
                                   & Top 2 & RNN (6) & RNN (6) & GRU (6) & RNN \\ \cline{2-6} 
                                   & Top 3 & LSTM (3) & LSTM (3) & RNN (3) & LSTM (top 2) \\ \hline
-        \multirow{3}{*}{Platium price} & Top 1 & LSTM (8) & GRU (9) & GRU (8) & GRU \\ \cline{2-6} 
+        \multirow{3}{*}{Giá bạch kim} & Top 1 & LSTM (8) & GRU (9) & GRU (8) & GRU \\ \cline{2-6} 
                                       & Top 2 & GRU (7) & LSTM (6) & LSTM (7) & LSTM \\ \cline{2-6} 
                                       & Top 3 & RNN (3) & RNN (3) & RNN (3) & RNN \\ \hline
-        \multirow{3}{*}{Silver price} & Top 1 & GRU (9) & GRU (9) & GRU (9) & GRU \\ \cline{2-6} 
+        \multirow{3}{*}{Giá bạc} & Top 1 & GRU (9) & GRU (9) & GRU (9) & GRU \\ \cline{2-6} 
                                  & Top 2 & LSTM (6) & RNN (6) & LSTM (6) & LSTM \\ \cline{2-6} 
                                  & Top 3 & RNN (3) & LSTM (3) & RNN (3) & RNN \\ \hline
     \end{tabular}}
-    \caption{\centering Vertically evaluating models ranking table}
+    \caption{\centering Bảng xếp hạng các mô hình được đánh giá theo chiều dọc}
     \label{table:models}
 \end{table}
 
-\indent Finally, after evaluating the models vertically across all three datasets, the group found that the best performing model is GRU. Among the models that were expected to perform well, only the model LSTM was selected as the best, while the models ARIMA and TBATS did not have very good predictive results. The top 3 best models always included GRU, LSTM, and RNN, all of which are deep learning algorithms, and their results were not significantly different from each other. This indicates that these types of algorithms yield more favorable results for these mineral price datasets. PatchTST and N-HiTS also produced fairly good results, as their outcomes were consistently close to the top 3. 
+\indent Cuối cùng sau khi xét theo chiều dọc, từ những mô hình được chọn là tốt nhất trong cả ba bộ dữ liệu thì nhóm nhận thấy mô hình tốt nhất là GRU. Trong số những mô hình được kỳ vọng sẽ cho ra kết quả tốt thì chỉ có mô hình LSTM được chọn là tốt, còn mô hình ARIMA và TBATS thì có kết quả dự đoán không thực sự tốt. Trong cả 3 mô hình tốt nhất thì luôn là GRU, LSTM, RNN và đều là thuật toán học sâu và kết quả chênh lệch nhau không quá lớn, điều này cho thấy các thuật toán dạng này cho ra kết quả khả quan hơn cho các bộ dữ liệu giá khoáng sản này, PatchTST và N-HiTS cũng cho ra kết quả khá tốt khi kết quả luôn không quá lệch so với top 3.
 
-\indent Thus, the  model GRU, according to the results, shows excellent learning capability with the potential to forecast the prices of the three precious metals in the future. Based on these findings, future research groups and data analysts can consider the models that can predict well and expand the research to forecast other metals or related fields, as well as improve the models to better serve academic and business needs.
-
-\section*{Acknowledgment}
-\addcontentsline{toc}{section}{Acknowledgment}
-First and foremost, we would like to express our sincere gratitude to \textbf{Assoc. Prof. Dr. Nguyen Dinh Thuan} and \textbf{Mr. Nguyen Minh Nhut} for their exceptional guidance, expertise, and invaluable feedback throughout the research process. Their mentorship and unwavering support have been instrumental in shaping the direction and quality of this study. Their profound knowledge, critical insights, and attention to detail have significantly contributed to the success of this research.
-\\This research would not have been possible without the support and contributions of our mentors. We would like to extend our heartfelt thanks to everyone involved for their invaluable assistance, encouragement, and belief in our research. Thank you all for your invaluable assistance and encouragement.
-
-%% UNCOMMENT these lines below (and remove the 2 commands above) if you want to embed the bibliografy.
-\begin{thebibliography}{00}
-\bibitem{b1} Tawum Juvert Mbah, Haiwang Ye, Jianhua Zhang & Mei Long,
-Using LSTM and ARIMA to Simulate and Predict Limestone Price Variations (06/01/2021).
-\bibitem{b2} Bojun Yin, Renguang Zuo, Yihui Xiong, Mineral Prospectivity Mapping via Gated Recurrent Unit Model (25/11/2021).
-\bibitem{b3} F.Javier Galán-Sales, Pablo Reina-Jiménez, Manuel Carranza-García, José María Luna-Romera, An Approach to Enhance Time Series Forecasting by Fast Fourier Transform (31/08/2023).
-
-\end{thebibliography}
-%%%%%%%%%%%%%%%
-
-
-\EOD
-
-\end{document}
+\indent Như vậy, mô hình GRU theo kết quả thì cho thấy khả năng học tuyệt vời với tiềm năng dự đoán giá ba loại kim loại quý trong tương lai. Từ kết quả này, các nhóm nghiên cứu và nhà phân tích dữ liệu trong tương lai có thể cân nhắc về những mô hình có thể dự đoán tốt và mở rộng nghiên cứu dự đoán cho cả các loại kim loại khác hoặc lĩnh vực khác có liên quan cũng như cải tiến mô hình nhằm phục vụ tốt hơn cho các nhu cầu học thuật và kinh doanh.
