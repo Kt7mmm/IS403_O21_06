@@ -15,6 +15,7 @@
 \usepackage{multirow}
 \usepackage{multicol}
 \usepackage{mathabx}
+\usepackage[section]{placeins}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -157,6 +158,25 @@ Trong mỗi tập dữ liệu gồm hai cột:
 Trong quá trình nghiên cứu và phân tích dữ liệu để dự báo giá khoáng sản, nhóm đã sử dụng một số công cụ và thư viện phần mềm phổ biến, chủ yếu được triển khai bằng ngôn ngữ lập trình Python. Danh sách các công cụ và thư viện chính được sử dụng: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn,... 
 \section{Phương pháp}
 
+\subsection{Linear Regression}
+Hồi quy tuyến tính (Linear Regression) được giới thiệu lần đầu bởi nhà thống kê Sir Francis Galton vào cuối thế kỷ 19, là một phương pháp thống kê dùng để mô hình hóa mối liên hệ giữa một biến phụ thuộc và một (hoặc nhiều) biến độc lập. Hồi quy tuyến tính đơn thì có 1 biến độc lập, hồi quy tuyến tính bội thì có nhiều hơn 1 biến độc lập.\\
+Nó xây dựng một mô hình tuyến tính bằng cách tìm một đường thẳng (nếu là hồi quy đơn biến) hoặc một siêu phẳng (nếu là hồi quy đa biến) dự đoán tốt nhất dựa trên quan hệ tuyến tính sao cho khác biệt giữa giá trị dự đoán và giá trị thực tế là nhỏ nhất.\\
+Hồi quy tuyến tính được ứng dụng rộng rãi để dự đoán giá trị đầu ra, xem xét ảnh hưởng của các biến số trong các lĩnh vực như kinh tế, tài chính, môi trường,...\\
+Phương trình hồi quy tuyến tính đơn biến: 
+\begin{samepage}
+\[Y=\beta_0+\beta_1X_1+\varepsilon\]
+\end{samepage}
+Phương trình hồi quy tuyến tính bội với k biến độc lập:
+\begin{samepage}
+\[Y=\beta_0+\beta_1X_1+...+\beta_kX_k+\varepsilon\]
+\end{samepage}
+Trong đó:\\
+        \indent\textbullet\ Y là giá trị dự đoán của biến phụ thuộc (Y) ứng với giá trị các biến độc lập \(X_1, X_2, \ldots, X_k\)\\
+        \indent\textbullet\ \(\beta_0\) là hệ số chặn, là giá trị dự đoán của Y khi giá trị của các biến độc lập bằng 0\\
+        \indent\textbullet\ \(\beta_1,..., \beta_k\) là hệ số tương quan hồi quy – cho thấy mức độ mạnh yếu trong mối liên hệ của Y với các biến độc lập.\\
+        \indent\textbullet\ \(X_1, X_2, \ldots, X_k\) là giá trị các biến độc lập để dự đoán Y.\\
+        \indent\textbullet\ \(\varepsilon\) là sai số của dự đoán, là phần biến thiên không thể giải thích bởi mối liên hệ tuyến tính của X và Y.
+
 \subsection{ARIMA}
 ARIMA, hay mô hình tự hồi quy tích hợp trung bình chuyển động, là một phương pháp phân tích thống kê sử dụng dữ liệu chuỗi thời gian để hiểu tốt hơn một tập dữ liệu hoặc dự đoán xu hướng tương lai. Nó là một mô hình kết hợp của 2 quá trình tự hồi quy và một trung bình trượt. Dữ liệu quá khứ sẽ được sử dụng để dự đoán dữ liệu trong tương lai.\\
 Mô hình ARIMA đại diện cho tự hồi quy tự động (AR), trung bình di chuyển (MA) và tích hợp sai phân (I). \\
@@ -271,6 +291,86 @@ PatchTST có hai biến thể:
     \item \textbf{PatchTST tự giám sát:} Không yêu cầu dữ liệu có nhãn.
 \end{itemize}
 
+\subsection{TBATS}
+TBATS là một mô hình dự báo chuỗi thời gian nâng cao, cải tiến từ mô hình BATS, và được phát triển bởi Rob J. Hyndman và Nikolaos Kourentzes. Mô hình TBATS được tạo ra vào năm 2011 với mục đích để dự báo chuỗi thời gian với nhiều chu kỳ mùa vụ (chu kỳ theo giờ, ngày, quý, năm,..). TBATS có thể xử lý các dạng mùa vụ phức tạp như tính mùa vụ không phải số nguyên, không lồng nhau và mùa vụ có chu kỳ dài.
+ \\
+TBATS thì ít phổ biến và ít được dùng hơn so với các mô hình khác trong phả hệ mô hình ARIMA. TBATS gồm 5 thành phần:\\
+\indent\textbullet\ \textbf{Trigonometric seasonality} (tính mùa vụ theo lượng giác): dùng phép biến đổi lượng giác (sin-cos) để mô hình các yếu tố mùa vụ có tần suất cố định.
+\\
+\indent\textbullet\ \textbf{Box-Cox transformation} (hàm biến đổi Box-Cox): xử lý tính không đồng nhất của dữ liệu, giúp cải thiện phân phối dữ liệu và làm cho phương sai của chúng đồng đều hơn.
+\\
+\indent\textbullet\ \textbf{ARMA errors} (sai số tự hồi quy kết hợp trung bình trượt): giúp dự đoán các sai số ngẫu nhiên không có tính mùa vụ.\\
+\indent\textbullet\ \textbf{Trend components} (xu hướng): thể hiện mô hình dự đoán xu hướng tăng, giảm.\\
+\indent\textbullet\ \textbf{Seasonal components} (các yếu tố mùa vụ): loại bỏ các biến động chu kỳ khỏi dữ liệu.
+\\
+Công thức:\\
+\begin{itemize}
+    \item \textbf{Hàm biến đổi Box-Cox:}
+    \begin{itemize}
+        \item Trường hợp tuyến tính:
+        \[
+        y_t^{(\omega)} =
+        \begin{cases}
+        \frac{y_t^\omega - 1}{\omega}, & \omega \neq 0 \\
+        \log y_t, & \omega = 0
+        \end{cases}
+        \]
+        \[
+    y_t^{(\omega)} = l_{t-1} + \phi b_{t-1} + \sum_{i=1}^{T} s_{t-m_i}^{(i)} + d_t
+    \]
+
+        \item Trường hợp phi tuyến tính:
+        \[
+        y_t^{(\omega)} = w' x_{t-1} + \varepsilon_t
+        \]
+        \[
+        x_t = F x_{t-1} + g \varepsilon_t
+        \]
+
+        Trong đó, \( m_1, \ldots, m_T \) nói về chu kỳ mùa, \( l_t \) là mức riêng của chu kỳ \( t \), \( st^(i) \) biểu diễn cho thành phần mùa vụ tại thời điểm \( t \), \( \mathbf{w'} \) là một dòng véc-tơ, \( \mathbf{g} \) là một cột véc-tơ, \( \mathbf{F} \) là một ma trận và \( \mathbf{x}_t \) là véc-tơ trạng thái không quan sát được tại thời điểm\( t \) (tương lai). 
+    \end{itemize}
+    \item \textbf{Hàm xử lý với phương pháp làm mịn – giảm đà xu hướng (trend damping), tìm các hệ số ARMA, mức riêng.}
+    \begin{align*}
+    l_t &= l_{t-1} + \phi b_{t-1} + \alpha d_t \\
+    d_t &= \sum_{i=1}^{p} \varphi_i d_{t-i} + \sum_{i=1}^{q} \theta_i \varepsilon_{t-i} + \varepsilon_t \\
+    b_t &= (1 - \phi)b + \phi b_{t-1} + \beta d_t
+    \end{align*}
+    Trong đó, \( b_t \) là xu hướng ngắn hạn trong chu kỳ \( t \), \( d_t \) nói về hệ số ARMA(\( p \), \( q \)) và sai số \( \varepsilon_t \) lấy từ quá trình nhiễu trắng với trung bình bằng 0 và phương sai cố định \( \sigma^2 \), \( \alpha \) và \( \beta \) và \( \gamma_i \) (\( i = 1, \ldots, T \)) là các hệ số làm mịn, \( \theta_i \) là hệ số thành phần i của trung bình trượt (MA). Xu hướng làm mịn Gardener & McKenzie với tham số \( \phi \) được sử dụng theo hướng Snyder để tạo nên \( b_t \).
+
+
+    \item \textbf{Hàm biến đổi lượng giác:}
+    \[
+    s_t^{(i)} = \sum_{j=i}^{k_i} s_{j,t}^{(i)}
+    \]
+    \[
+    k_i = 
+    \begin{cases} 
+    \frac{m_i}{2} & \text{nếu giá trị của mùa i là chẵn,} \\
+    \frac{(m_i - 1)}{2} & \text{nếu giá trị của mùa i là lẻ}
+    \end{cases}
+    \]
+    \begin{align*}
+    s_{j,t}^{(i)} &= s_{j,t-1}^{(i)} \cos \lambda_j^{(i)} + s_{j,t-1}^{*(i)} \sin \lambda_j^{(i)} + \gamma_1^{(i)} d_t \\
+    s_{j,t}^{*(i)} &= -s_{j,t-1} \sin \lambda_j^{(i)} + s_{j,t-1}^{*(i)} \cos \lambda_j^{(i)} + \gamma_2^{(i)} d_t \\
+    \lambda_j^{(i)} &= 2\pi j / m_i
+    \end{align*}
+Trong đó, \( \gamma_1 \) và \( \gamma_2 \) là tham số làm mịn, \( s_{j,t}^{(i)} \) là mức độ tăng trưởng ngẫu nhiên trong khoảng thời gian \( s_j^{*(i)} \).
+
+
+\end{itemize}
+
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{bibliography/Figure/tbats.png}
+    \caption{Hình luồng hoạt động của mô hình TBATS}
+    \label{fig:tbats_workflow}
+\end{figure}
+
+\textbf{Lưu ý}: để có được mô hình TBATS cuối cùng thì có thể thêm hoặc bỏ các phần xử lý: biến đổi Box-Cox, làm mịn xu hướng (Trend Damping), tính sai số ARMA nhằm tạo được mô hình tốt nhất.
 
 
 \subsection{LSTM}
@@ -327,6 +427,63 @@ s_t = \alpha x_t + (1 - \alpha) s_{t-1} + \alpha (x_t - s_{t-1})
   \item $t$: thời điểm
 \end{itemize}
 Khi giá trị của \( \alpha \) lớn (gần với 1), mức độ làm mịn giảm. Điều này có nghĩa là thuật toán SES sẽ có ít làm mịn hơn và phản ứng mạnh mẽ hơn đối với những thay đổi gần đây nhất trong dữ liệu. Các giá trị dự đoán sẽ gần với các giá trị quan sát gần đây nhất.
+
+\section{Kết quả thực nghiệm}
+\subsection{Các phương pháp đánh giá}
+\begin{enumerate}
+    \item \textbf{Mean Absolute Percentage Error} (MAPE) là trung bình cộng phần trăm độ lệch tuyệt đối giữa giá trị dự đoán và giá trị thực.
+    \begin{align*}
+    MAPE &= \frac{1}{n} \sum_{i=1}^n \left|\frac{y_i - \hat{y}i}{y_i}\right| \cdot 100 \
+    \end{align*}
+    \item \textbf{Root Mean Square Error} (RMSE) là căn bậc hai của trung bình bình phương độ lệch giữa giá trị dự đoán và giá trị thực tế.
+    \begin{align*}
+    RMSE &= \sqrt{\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}i)^2} \
+    \end{align*}
+    \item \textbf{Mean Average Error} (MAE) là trung bình độ lệch tuyệt đối giữa giá trị dự đoán và giá trị thực tế.
+    \begin{align*}
+    MAE &= \frac{1}{n} \sum_{i=1}^n |y_i - \hat{y}i| \
+    \end{align*}
+\end{enumerate}
+
+\indent Trong đó:
+\begin{itemize}
+    \item $n$ là tổng số quan sát
+    \item $y_i$ là giá trị thực tế của quan sát thứ i.
+    \item $\hat{y}_i$ là giá trị dự đoán của quan sát thứ i.
+\end{itemize}
+
+\section{Kết luận}
+
+\indent Xét theo chiều ngang, với dữ liệu giá vàng thì tỉ lệ tốt nhất cho các mô hình là 7:3 với số lần có kết quả tốt nhất là 5, tỉ lệ tốt thứ hai là 8:2 (4 lần), kém nhất là tỉ lệ 9:1 (1 lần). Tương tự với dữ liệu giá bạch kim thì tốt nhất là tỉ lệ 8:2 (5 lần), tiếp đó là tỉ lệ 9:1 (4 lần) và 7:3 (1 lần). Với dữ liệu giá bạc thì kém nhất là tỉ lệ 7:3 (2 lần) và 9:1 (3 lần) và tốt nhất là tỉ lệ 8:2 (5 lần). Như vậy tỉ lệ tốt nhất cho toàn bộ dữ liệu là 8:2.
+
+\indent Xét theo chiều dọc, trong với mỗi tỉ lệ, ứng với mỗi phương pháp kiểm định, nhóm nghiên cứu sẽ chọn ra 3 mô hình dự báo tốt nhất; top 1, 2, 3, sẽ được gán hệ số 3, 2, 1 và mô hình nào có tổng hệ số cao nhất thì chọn. Từ đó, chọn ra 3 mô hình tốt nhất của mỗi bộ dữ liệu.
+
+\begin{table}[h!]
+    \centering
+    \resizebox{0.48\textwidth}{!}{
+    \renewcommand{\arraystretch}{1.5}
+    \small
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \textbf{Bộ dữ liệu} & \textbf{Xếp hạng} & \textbf{Tỉ lệ 7:3} & \textbf{Tỉ lệ 8:2} & \textbf{Tỉ lệ 9:1} & \textbf{3 mô hình tốt nhất} \\ \hline
+        \multirow{3}{*}{Giá vàng} & Top 1 & GRU (9) & GRU (9) & LSTM (9) & GRU \\ \cline{2-6} 
+                                  & Top 2 & RNN (6) & RNN (6) & GRU (6) & RNN \\ \cline{2-6} 
+                                  & Top 3 & LSTM (3) & LSTM (3) & RNN (3) & LSTM (top 2) \\ \hline
+        \multirow{3}{*}{Giá bạch kim} & Top 1 & LSTM (8) & GRU (9) & GRU (8) & GRU \\ \cline{2-6} 
+                                      & Top 2 & GRU (7) & LSTM (6) & LSTM (7) & LSTM \\ \cline{2-6} 
+                                      & Top 3 & RNN (3) & RNN (3) & RNN (3) & RNN \\ \hline
+        \multirow{3}{*}{Giá bạc} & Top 1 & GRU (9) & GRU (9) & GRU (9) & GRU \\ \cline{2-6} 
+                                 & Top 2 & LSTM (6) & RNN (6) & LSTM (6) & LSTM \\ \cline{2-6} 
+                                 & Top 3 & RNN (3) & LSTM (3) & RNN (3) & RNN \\ \hline
+    \end{tabular}}
+    \caption{\centering Bảng xếp hạng các mô hình được đánh giá theo chiều dọc}
+    \label{table:models}
+\end{table}
+
+\indent Cuối cùng sau khi xét theo chiều dọc, từ những mô hình được chọn là tốt nhất trong cả ba bộ dữ liệu thì nhóm nhận thấy mô hình tốt nhất là GRU. Trong số những mô hình được kỳ vọng sẽ cho ra kết quả tốt thì chỉ có mô hình LSTM được chọn là tốt, còn mô hình ARIMA và TBATS thì có kết quả dự đoán không thực sự tốt. Trong cả 3 mô hình tốt nhất thì luôn là GRU, LSTM, RNN và đều là thuật toán học sâu và kết quả chênh lệch nhau không quá lớn, điều này cho thấy các thuật toán dạng này cho ra kết quả khả quan hơn cho các bộ dữ liệu giá khoáng sản này, PatchTST và N-HiTS cũng cho ra kết quả khá tốt khi kết quả luôn không quá lệch so với top 3.
+
+\indent Như vậy, mô hình GRU theo kết quả thì cho thấy khả năng học tuyệt vời với tiềm năng dự đoán giá ba loại kim loại quý trong tương lai. Từ kết quả này, các nhóm nghiên cứu và nhà phân tích dữ liệu trong tương lai có thể cân nhắc về những mô hình có thể dự đoán tốt và mở rộng nghiên cứu dự đoán cho cả các loại kim loại khác hoặc lĩnh vực khác có liên quan cũng như cải tiến mô hình nhằm phục vụ tốt hơn cho các nhu cầu học thuật và kinh doanh.
+
 \section*{Lời cảm ơn}
 
 
